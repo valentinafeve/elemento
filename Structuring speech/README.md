@@ -1,5 +1,9 @@
 Before starting
 
+```bash
+pip install stanfordnlp
+```
+
 ```python
 import nltk
 nltk.download('punkt')
