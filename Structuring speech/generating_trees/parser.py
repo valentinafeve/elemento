@@ -6,7 +6,7 @@ from nltk.data import find
 model_dir = find('models/bllip_wsj_no_aux').path
 bllip = rrp.from_unified_model_dir(model_dir)
 
-f = open("texts/text4", "r")
+f = open("texts/text2", "r")
 sentence = f.read()
 all_parses = bllip.parse(sentence)
 
