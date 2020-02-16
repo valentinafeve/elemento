@@ -6,7 +6,7 @@ from nltk.data import find
 model_dir = find('models/bllip_wsj_no_aux').path
 bllip = rrp.from_unified_model_dir(model_dir)
 
-f = open("cities", "r")
+f = open("texts/text4", "r")
 sentence = f.read()
 all_parses = bllip.parse(sentence)
 
@@ -14,4 +14,3 @@ all_parses = bllip.parse(sentence)
 ptb = all_parses[0].ptb_parse
 tree = Tree.fromstring(str(ptb))
 tree.draw()
-print(dir(tree))
