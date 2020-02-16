@@ -1,12 +1,17 @@
-from nltk.data import find
-
+from bllipparser import RerankingParser as rrp
 from nltk.parse.api import ParserI
 from nltk.tree import Tree
-from bllipparser import RerankingParser as rrp
+from nltk.data import find
 
 model_dir = find('models/bllip_wsj_no_aux').path
 bllip = rrp.from_unified_model_dir(model_dir)
 
-sentence = 'British left waffles on Falklands .'.split()
+f = open("cities", "r")
+sentence = f.read()
 all_parses = bllip.parse(sentence)
-print(type(all_parses[0]))
+
+
+ptb = all_parses[0].ptb_parse
+tree = Tree.fromstring(str(ptb))
+tree.draw()
+print(dir(tree))
