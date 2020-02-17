@@ -14,4 +14,19 @@ print(np.dot(v3,v4))
 print(np.dot(v3,v5))
 print(np.dot(v4,v5))
 
-result=model.most_similar("cat")
+nubes=model["cloud"]
+negro=model["black"]
+tormenta=model["storm"]
+effect= tormenta
+
+
+cause = np.add(nubes, negro)
+print(cause)
+print(effect)
+
+print(len(cause))
+print(len(effect))
+
+relation = np.cross(cause.tolist(), effect.tolist())
+
+event = np.add(cause,  np.cross(cause, effect) )
