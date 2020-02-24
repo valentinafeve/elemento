@@ -2,7 +2,7 @@ from nltk.parse import CoreNLPParser
 from nltk.tree import Tree
 
 parser = CoreNLPParser(url='http://localhost:9000')
-f = open("texts/text2", "r")
+f = open("../Fragments_for_testing/text2", "r")
 sentence = f.read()
 list_tree = str(list(parser.parse(sentence.split())))
 list_tree = list_tree.replace('Tree','')
