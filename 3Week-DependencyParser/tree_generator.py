@@ -2,7 +2,7 @@ from datetime import datetime
 from nltk.parse.corenlp import CoreNLPDependencyParser
 dep_parser = CoreNLPDependencyParser(url='http://localhost:9000')
 
-f = open("texts/text2", "r")
+f = open("texts/text1", "r")
 sentence = f.read()
 parse, = dep_parser.raw_parse(sentence)
 

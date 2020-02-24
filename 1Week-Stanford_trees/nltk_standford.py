@@ -7,7 +7,7 @@ parser = stanford.StanfordParser(model_path="/location/of/the/englishPCFG.ser.gz
 sentences = parser.raw_parse_sents(("Hello, My name is Melroy.", "What is your name?"))
 print(sentences)
 
-# GUI
+# Show tree
 for line in sentences:
     for sentence in line:
         sentence.draw()
