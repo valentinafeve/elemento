@@ -12,6 +12,8 @@ for sentence in sentences:
 
     conll = parse.to_conll(4)
     dp = DependencyGraph(conll)
+    dotted = dp.to_dot()
+    graph = dp.nx_graph()
     f = open(filename+'_'+str(datetime.now())+'.svg', 'w')
     svg = dp._repr_svg_()
     f.write(svg)
