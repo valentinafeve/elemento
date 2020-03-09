@@ -1,14 +1,16 @@
 from datetime import datetime
 from nltk.parse.corenlp import CoreNLPDependencyParser
 from nltk.parse.dependencygraph import DependencyGraph
+import clean
 
 parser = CoreNLPDependencyParser(url='http://localhost:9000')
 for i in range(1,7):
-
+    abreviations="abreviations"
     filename = "text"+str(i)
     f = open("../Fragments_for_testing/"+filename, "r")
     sentences=[]
     for L in f.readlines():
+        L=clean.replace(abreviations,L)
         sentences += L.split('.')
     j=1
     for sentence in sentences:
