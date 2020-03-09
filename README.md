@@ -2,8 +2,11 @@
 
 ## Stanford CoreNLP installation
 
+
+
 ```bash
 cd
+sudo apt-get install graphviz
 wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip
 unzip stanford-corenlp-full-2018-10-05.zip
 cd stanford-corenlp-full-2018-10-05
