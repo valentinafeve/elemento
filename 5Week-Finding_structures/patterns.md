@@ -3,8 +3,8 @@
 ## Rules
 
 
-parent{x}
-parent tiene x como hijo
+x{y}
+x tiene y como hijo
 
 x|y
 o se cumple x o y
@@ -17,20 +17,30 @@ not x
 
 
 ## How is X?
-(sustantivo|adj){nsubj;cop;(amod{advmod})?}
+
+X is Y
+(Y){X;be;(amod{advmod})?;(nmod{\*})?}
+(sustantivo|adj){nsubj;cop;(amod{advmod})?;(nmod{\*})?}
 
 ## What do X do?
-> Si el sujeto es hermano
 
+X verb akk
+verb{X;Akk}
 verb{nsubj;dobj|\*{dobj}}
 
->  dado que se cumpla el patrón
+> Dado que se cumpla el patrón
 
 verb{nsubj;!(dobj|\*{dobj})}
-> se encontró un sujeto tácito
+> Se encontró un sujeto tácito
 
 ## When X what?
 
+X verb Y(temp)
+verb{X;Y}
 verb{nsubj;(nmod:tmod)}
 
 ## Where X did Y?
+
+X verb (time preposition) Y(place)
+Y{X;cop;case}
+place{nsubj;cop;case}
