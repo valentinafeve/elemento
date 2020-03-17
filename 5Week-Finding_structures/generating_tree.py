@@ -8,7 +8,7 @@ parser = CoreNLPDependencyParser(url='http://localhost:9000')
 # f = open("../Fragments_for_testing/"+filename, "r")
 # sentences = f.readlines()
 # for sentence in sentences:
-sentence = "Monkeys have tiny hands and Elephants have a long trunk"
+sentence = "Monkeys have tiny hands but Elephants have a long trunk"
 parse, = parser.raw_parse(sentence)
 conll = parse.to_conll(4)
 print(conll)
