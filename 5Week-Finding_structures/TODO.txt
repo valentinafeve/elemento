@@ -1,0 +1,5 @@
+To do:
+
+- Obtener el tiempo del verbo
+-
+.

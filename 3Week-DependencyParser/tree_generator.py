@@ -2,8 +2,8 @@ from datetime import datetime
 from nltk.parse.corenlp import CoreNLPDependencyParser
 dep_parser = CoreNLPDependencyParser(url='http://localhost:9000')
 
-f = open("../Fragments_for_testing/text5", "r")
-sentence = f.read()
+
+sentence = "the cat ran in the house"
 parse, = dep_parser.raw_parse(sentence)
 
 f = open(str(datetime.now())+'.svg', 'w')
