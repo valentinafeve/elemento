@@ -16,13 +16,13 @@ x and y
 not x
 
 
-## How is X?
+## P01 - How is X?
 
 X is Y
 (Y){X;be;(amod{advmod})?;(nmod{\*})?}
 (sustantivo|adj){nsubj;cop;(amod{advmod})?;(nmod{\*})?}
 
-## What do X do?
+## P02 - What do X do?
 
 X verb akk
 verb{X;Akk}
@@ -33,13 +33,13 @@ verb{nsubj;dobj|\*{dobj}}
 verb{nsubj;!(dobj|\*{dobj})}
 > Se encontró un sujeto tácito
 
-## When X what?
+## P03 - When X what?
 
 X verb Y(temp)
 verb{X;Y}
 verb{nsubj;(nmod:tmod)}
 
-## Where X did Y?
+## P04 - Where X did Y?
 
 X verb (time preposition) Y(place)
 Y{X;cop;case}
