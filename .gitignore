@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Results
-# *.svg
+*.svg
 *.ps
