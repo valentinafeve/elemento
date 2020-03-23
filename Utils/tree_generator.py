@@ -1,0 +1,16 @@
+from datetime import datetime
+from nltk.parse.corenlp import CoreNLPDependencyParser
+import sys
+dep_parser = CoreNLPDependencyParser(url='http://localhost:9000')
+
+print("sys.argv[1]")
+
+sentence = sys.argv[1]
+parse, = dep_parser.raw_parse(sentence)
+
+if len(sys.argv)==3:   
+    f = open(sys.argv[2]+'.svg', 'w')
+    svg = parse._repr_svg_()
+    f.write(svg)
+
+print(parse.to_conll(4))
