@@ -20,6 +20,7 @@ not x
 
 X is Y
 (Y){X;be;(amod{advmod})?;(nmod{\*})?}
+
 (sustantivo|adj){nsubj;cop;(amod{advmod})?;(nmod{\*})?}
 
 ## P02 - What do X do?
@@ -30,8 +31,6 @@ verb{nsubj;dobj|\*{dobj}}
 
 > Dado que se cumpla el patrón
 
-verb{nsubj;!(dobj|\*{dobj})}
-> Se encontró un sujeto tácito
 
 ## P03 - When X what?
 
