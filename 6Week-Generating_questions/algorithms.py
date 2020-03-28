@@ -139,7 +139,7 @@ def generate_tree( dg ):
 def generate_regex( pattern ):
     matches = re.findall(r"[a-z]+\w", pattern)
     pattern = pattern.replace('?','([0-9]+:[a-zA-Z:]+)')
-    pattern = pattern.replace('*','({[0-9]+:[a-zA-Z:]+({(.*)?})*})*')
+    pattern = pattern.replace('*','({[0-9]+:[a-zA-Z:]+({(.)*?})*})*')
     for match in matches:
         pattern = pattern.replace(match, '[0-9]+:'+match)
     return pattern
