@@ -1,0 +1,66 @@
+there was an old woman who loved baking gingerbread
+1:	there	EX	2	expl 
+2:	was	VBD	0	ROOT 
+3:	an	DT	5	det 
+4:	old	JJ	5	amod 
+5:	woman	NN	2	nsubj 
+6:	who	WP	7	nsubj 
+7:	loved	VBD	5	acl:relcl 
+8:	baking	VBG	7	xcomp 
+9:	gingerbread	NN	8	dobj 
+10:	 
+She lived with her husband on a farm at the edge of town
+1:	She	PRP	2	nsubj 
+2:	lived	VBD	0	ROOT 
+3:	with	IN	5	case 
+4:	her	PRP$	5	nmod:poss 
+5:	husband	NN	2	nmod 
+6:	on	IN	8	case 
+7:	a	DT	8	det 
+8:	farm	NN	2	nmod 
+9:	at	IN	11	case 
+10:	the	DT	11	det 
+11:	edge	NN	8	nmod 
+12:	of	IN	13	case 
+13:	town	NN	11	nmod 
+14:	 
+She would bake gingerbread cookies
+1:	She	PRP	3	nsubj 
+2:	would	MD	3	aux 
+3:	bake	VB	0	ROOT 
+4:	gingerbread	JJ	5	amod 
+5:	cookies	NNS	3	dobj 
+6:	 
+{'VERB': '3', 'WHO': '1', 'WHAT': '5'}
+One day she made a special batch of gingerbread men
+1:	One	CD	2	nummod 
+2:	day	NN	4	nmod:tmod 
+3:	she	PRP	4	nsubj 
+4:	made	VBD	0	ROOT 
+5:	a	DT	7	det 
+6:	special	JJ	7	amod 
+7:	batch	NN	4	dobj 
+8:	of	IN	10	case 
+9:	gingerbread	JJ	10	amod 
+10:	men	NNS	7	nmod 
+11:	 
+{'VERB': '4', 'WHO': '3', 'WHAT': '7'}
+She decorated the gingerbread men with care
+1:	She	PRP	2	nsubj 
+2:	decorated	VBD	0	ROOT 
+3:	the	DT	5	det 
+4:	gingerbread	JJ	5	amod 
+5:	men	NNS	2	dobj 
+6:	with	IN	7	case 
+7:	care	NN	2	nmod 
+8:	 
+the children gobbled up the treats so fast
+1:	the	DT	2	det 
+2:	children	NNS	3	nsubj 
+3:	gobbled	VBD	0	ROOT 
+4:	up	RP	3	compound:prt 
+5:	the	DT	6	det 
+6:	treats	VBZ	3	dobj 
+7:	so	RB	8	advmod 
+8:	fast	JJ	3	advmod 
+9:	 
