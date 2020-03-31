@@ -12,5 +12,6 @@ if len(sys.argv)==3:
     f = open(sys.argv[2]+'.svg', 'w')
     svg = parse._repr_svg_()
     f.write(svg)
+    f.close()
 
 print(parse.to_conll(4))
