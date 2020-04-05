@@ -25,6 +25,12 @@ class Inspector():
     def get_lemma(self):
         return self.nodes[self.state]['lemma']
 
+    def get_state(self):
+        return self.state
+
+
+def any(tree):
+    return {}
 
 def OR_F(f1,f2):
     sig1=inspect.signature(f1)
@@ -36,6 +42,10 @@ def OR_F(f1,f2):
     return eval(rfunct,{'f1':f1,'f2':f2},None)
 
 def AND_F(f1,f2):
+    if f1==any:
+        return f2
+    if f2==any:
+        return f1
     def and_value(dic1,dic2):
         if dic1 and dic2:
             dic1.update(dic2)
@@ -81,17 +91,25 @@ def SON_F(f,n):
 def MATCH_TAG(match,tag):
     n=len(tag)
     def match_tag(tree):
-        if tree.get_tag()[:n]==tag:
-            return {match:tree.get_lemma()}
+        if re.match(tag,tree.get_tag()):
+            return {match:tree.get_state()}
     return match_tag
 
 
 def MATCH_REL(match,rel):
     n=len(rel)
     def match_rel(tree):
-        if tree.get_rel()[:n]==rel:
-            return {match:tree.get_lemma()}
+        if re.match(rel,tree.get_rel()):
+            return {match:tree.get_state()}
     return match_rel
+
+'''
+operators:
+     -> AND_F(fA,SON_F(B,1))
+    exp2=A;B -> AND_F(fA,fB)
+    exp3=A|B -> OR_F(fA,fB)
+    exp4=key<tag>[rel] -> AND_F(MATCH_TAG(key,tag),MATCH_REL(key,rel))
+'''
 
 
 fnsubj=MATCH_REL('WHO','nsubj')
