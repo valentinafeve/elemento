@@ -30,6 +30,8 @@ for sentence in f.readlines():
             print("There wasn't matches with pattern %d" % index)
         else:
             dictionaries.append(m)
+            print("Line:",index)
+            print("Sentence:",sentence)
             print( Fore.BLUE + str(m))
             print( Style.RESET_ALL )
         index+= 1
