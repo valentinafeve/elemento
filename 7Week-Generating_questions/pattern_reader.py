@@ -3,6 +3,7 @@ from pattern_finder import *
 
 class PatternReader:
     def readfromfile(self, filename):
+        patterns = []
         f = open(filename, 'r+')
         lines = f.readlines()
         for line in lines:
@@ -42,4 +43,8 @@ class PatternReader:
                 i+=1
             print("Adding SON relation in F, -1 depth")
             F = SON_F(F, -1)
-            return F
+            print("Pattern created")
+            print("Adding pattern...")
+            patterns.append(F)
+        print("Patterns were read succesfully")
+        return patterns
