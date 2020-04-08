@@ -23,12 +23,23 @@ class PatternReader:
                     b = wfp.pop()
                     if b == '?':
                         b = ''
-                    f = MATCH_REL(a, b)
-                    print("Matching rel %s %s", (a, b))
+                    # Tags are uppercase
+                    if b.isupper():
+                        f = MATCH_TAG(a, b)
+                        print("Matching tag %s %s..." % (a, b))
+                    # Conll is lowercase
+                    else:
+                        f = MATCH_REL(a, b)
+                        print("Matching rel %s %s..." % (a, b))
                     ff = SON_F(f, 1)
+                    print("Creating SON relation, 1 depth")
                     if F:
+                        print("Adding AND relation in F")
                         F = AND_F(F, ff)
                     else:
+                        print("F created")
                         F = ff
                 i+=1
+            print("Adding SON relation in F, -1 depth")
+            F = SON_F(F, -1)
             return F
