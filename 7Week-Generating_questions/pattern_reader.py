@@ -7,6 +7,9 @@ class PatternReader:
         f = open(filename, 'r+')
         lines = f.readlines()
         for line in lines:
+            if line[0] == "#":
+                continue
+                
             pattern = line.split(' ')
 
             # Words from pattern

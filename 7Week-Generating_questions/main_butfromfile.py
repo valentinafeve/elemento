@@ -8,6 +8,9 @@ parser = CoreNLPDependencyParser(url='http://localhost:9000')
 
 dictionaries = []
 
+pr = PatternReader()
+matchers = pr.readfromfile('patterns.pt')
+
 f = open("sentences","r+")
 for sentence in f.readlines():
     parse, = parser.raw_parse(sentence)
@@ -20,8 +23,6 @@ for sentence in f.readlines():
 
     dg = DependencyGraph(conll)
 
-    pr = PatternReader()
-    matchers = pr.readfromfile('patterns.pt')
     index = 1
     for matcher in matchers:
         i = Inspector( dg.nodes )

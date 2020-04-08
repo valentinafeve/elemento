@@ -1,3 +1,3 @@
 {VB{nsubj}{dobj}} {VERB{WHO}{WHAT}}
-{?{nsubj}{cop}} {WHAT{WHO}{VERB}}
-{?{nsubj}{nmod:tmod}} {VERB{WHO}{WHEN}}
+{JJ{nsubj}{cop}} {WHAT{WHO}{VERB}}
+#{?{nsubj}{nmod:tmod}} {VERB{WHO}{WHEN}}
