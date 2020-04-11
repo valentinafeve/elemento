@@ -13,6 +13,8 @@ matchers = pr.readfromfile('patterns.pt')
 
 f = open("sentences","r+")
 for sentence in f.readlines():
+    if sentence[0] == "#":
+        continue
     parse, = parser.raw_parse(sentence)
     conll = parse.to_conll(4)
 

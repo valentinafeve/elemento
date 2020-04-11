@@ -9,45 +9,56 @@ class PatternReader:
         for line in lines:
             if line[0] == "#":
                 continue
-                
-            pattern = line.split(' ')
 
-            # Words from pattern
+            pattern = line.split(' ')
             wfp = re.findall(r"[\w?']+", pattern[0])
             wfp.reverse()
-
-            # Words to match
             wtm = re.findall(r"[\w']+", pattern[1])
             wtm.reverse()
-            i = 0
-            F = None
-            while i < len(pattern[0]):
-                if pattern[0][i] == '{':
+
+            relations = []
+            parent = None
+
+            deep = 0
+
+            print("\n\n")
+            pattern[0]+="."
+            for c in pattern[0]:
+                if c == '}':
+                    deep-=1
+                    print("Found }")
+                    print(deep)
+                    if deep == 0:
+                        f = relations.pop()
+                        while relations:
+                            f = AND_F(f, relations.pop())
+                            print("AND...")
+                        if parent:
+                            f = AND_F(parent, f)
+                            print("AND...")
+                        parent = f
+
                     a = wtm.pop()
                     b = wfp.pop()
-                    if b == '?':
-                        b = ''
-                    # Tags are uppercase
+
                     if b.isupper():
                         f = MATCH_TAG(a, b)
-                        print("Matching tag %s %s..." % (a, b))
-                    # Conll is lowercase
+                        print("MATCH TAG %s %s..." % (a, b))
                     else:
                         f = MATCH_REL(a, b)
-                        print("Matching rel %s %s..." % (a, b))
-                    ff = SON_F(f, 1)
-                    print("Creating SON relation, 1 depth")
-                    if F:
-                        print("Adding AND relation in F")
-                        F = AND_F(F, ff)
+                        print("MATCH REL %s %s..." % (a, b))
+                    if parent:
+                        ff = SON_F(f,1)
+                        print("SON, deep 1")
                     else:
-                        print("F created")
-                        F = ff
-                i+=1
-            print("Adding SON relation in F, -1 depth")
-            F = SON_F(F, -1)
-            print("Pattern created")
-            print("Adding pattern...")
-            patterns.append(F)
+                        ff = SON_F(f,-1)
+                        print("SON, deep -1")
+
+                    relations.append(ff)
+                if c == '{':
+                    deep+=1
+                    print("Found {")
+                    print(deep)
+            patterns.append(parent)
         print("Patterns were read succesfully")
         return patterns
