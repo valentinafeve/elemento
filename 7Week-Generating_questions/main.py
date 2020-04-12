@@ -29,6 +29,8 @@ for matcher in matchers:
     else:
         print( Fore.BLUE + str(m))
         print( Style.RESET_ALL )
+        print( Fore.RED)
         questions = generate_questions( dg, m)
         print(questions)
+        print( Style.RESET_ALL )
     index+= 1

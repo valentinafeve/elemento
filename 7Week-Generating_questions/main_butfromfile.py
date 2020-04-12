@@ -2,6 +2,7 @@ from pattern_reader import *
 from nltk.parse.corenlp import CoreNLPDependencyParser
 from nltk.parse.dependencygraph import DependencyGraph
 from datetime import datetime
+from question_generator import *
 
 import sys
 from colorama import Fore, Style
@@ -12,7 +13,7 @@ dictionaries = []
 
 pr = PatternReader()
 matchers = pr.readfromfile('patterns.pt')
-
+questions=[]
 f = open("sentences","r+")
 index_line = 0
 for sentence in f.readlines():
@@ -53,10 +54,16 @@ for sentence in f.readlines():
             dictionaries.append(m)
             print( Fore.BLUE + str(m))
             print( Style.RESET_ALL )
+            questions.extend(generate_questions( dg, m))
         index+= 1
 
 print( Fore.BLUE )
 print("DICTIONARIES:")
 for dictionay in dictionaries:
     print(dictionay)
+print( Style.RESET_ALL )
+
+print( Fore.RED)
+print("QUESTIONS:")
+print(questions)
 print( Style.RESET_ALL )
