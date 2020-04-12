@@ -13,6 +13,9 @@ class Inspector():
             R+=[Inspector(self.nodes,deps[r][0])]
         return R
 
+    def get_state(self):
+        return self.state
+
     def get_tag(self):
         return self.nodes[self.state]['tag']
 
@@ -79,7 +82,7 @@ def MATCH_TAG(match,tag):
     n=len(tag)
     def match_tag(tree):
         if tree.get_tag()[:n]==tag:
-            return {match:tree.get_lemma()}
+            return {match:tree.get_state()}
     return match_tag
 
 
@@ -87,5 +90,5 @@ def MATCH_REL(match,rel):
     n=len(rel)
     def match_rel(tree):
         if tree.get_rel()[:n]==rel:
-            return {match:tree.get_lemma()}
+            return {match:tree.get_state()}
     return match_rel
