@@ -24,19 +24,13 @@ class PatternReader:
             print("\n\n")
             pattern[0]+="."
             for c in pattern[0]:
-                if c == '}':
-                    deep-=1
-                    print("Found }")
-                    print(deep)
-                    if deep == 0:
-                        f = relations.pop()
-                        while relations:
-                            f = AND_F(f, relations.pop())
-                            print("AND...")
-                        if parent:
-                            f = AND_F(parent, f)
-                            print("AND...")
-                        parent = f
+                if c == '{':
+                    deep+=1
+                    if deep == 2:
+                        if not parent:
+                            print("There is a parent")
+                            relations.pop()
+                            parent = f
 
                     a = wtm.pop()
                     b = wfp.pop()
@@ -48,17 +42,23 @@ class PatternReader:
                         f = MATCH_REL(a, b)
                         print("MATCH REL %s %s..." % (a, b))
                     if parent:
-                        ff = SON_F(f,1)
-                        print("SON, deep 1")
-                    else:
-                        ff = SON_F(f,-1)
-                        print("SON, deep -1")
+                        f = SON_F(f,1)
+                        print("SON_F, deep 1")
 
-                    relations.append(ff)
-                if c == '{':
-                    deep+=1
-                    print("Found {")
-                    print(deep)
+                    relations.append(f)
+                if c == '}':
+                    deep-=1
+                    if deep == 0:
+                        f = relations.pop()
+                        while relations:
+                            f = AND_F(f, relations.pop())
+                            print("AND_F...")
+                        f = AND_F(parent, f)
+                        parent = f
+
+                    if not relations:
+                        parent = SON_F(f,-1)
+
             patterns.append(parent)
         print("Patterns were read succesfully")
         return patterns
