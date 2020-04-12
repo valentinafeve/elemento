@@ -1,4 +1,5 @@
 from pattern_reader import *
+from question_generator import *
 from nltk.parse.corenlp import CoreNLPDependencyParser
 from nltk.parse.dependencygraph import DependencyGraph
 from colorama import Fore, Style
@@ -28,4 +29,6 @@ for matcher in matchers:
     else:
         print( Fore.BLUE + str(m))
         print( Style.RESET_ALL )
+        text = generate_question( dg, m)
+        print(text)
     index+= 1
