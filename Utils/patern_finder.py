@@ -19,7 +19,7 @@ class Inspector():
 
     def get_tag(self):
         return self.nodes[self.state]['tag']
-    
+
     def get_rel(self):
         if self.state==0:
             return 'None'
@@ -67,9 +67,9 @@ def AND_F(*args):
 def SON_F(f,n=1):
     """
         f must take something with the method childs()
-        n is the depth on wich f is satisfied, -1 for any depth 
+        n is the depth on wich f is satisfied, -1 for any depth
     """
-    
+
     def son_f_rec(tree,n):
         if n==0:
             return None
