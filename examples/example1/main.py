@@ -1,27 +1,36 @@
-from pattern_reader import *
 from nltk.parse.corenlp import CoreNLPDependencyParser
 from nltk.parse.dependencygraph import DependencyGraph
 from datetime import datetime
-from question_generator import *
-
 import sys
 from colorama import Fore, Style
+import sys
+sys.path.insert(1, '../../elemento')
+import elemento as el
 
 parser = CoreNLPDependencyParser(url='http://localhost:9000')
 
+# List of dictionaries
 dictionaries = []
 
-pr = PatternReader()
-matchers = pr.readfromfile('patterns.pt')
-questions=[]
-f = open("sentences","r+")
+# List of functions known as matchers
+matchers = []
+
+# Reading matchers from patterns file
+f = open("../patterns.pt","r+")
+for line in f.readlines():
+    matcher = el.get_matcher(line)
+    matchers.append(matcher)
+
+# Reading sentences from book
+f = open("../books/The_pirate_Modi.txt","r+")
 index_line = 0
+
 for sentence in f.readlines():
     index_line+=1
     if sentence[0] == "#":
         continue
 
-    # Parse
+    # Parsing from Stanford
     parse, = parser.raw_parse(sentence)
     conll = parse.to_conll(4)
     dg = DependencyGraph(conll)
@@ -39,14 +48,15 @@ for sentence in f.readlines():
         print(f'{cont}:\t{line} ')
         cont+= 1
 
-
     index = 1
     print( Fore.GREEN )
     print("Line:",index)
     print("Sentence:",sentence)
     print( Style.RESET_ALL )
+
+    # Trying sentence with all the matchers
     for matcher in matchers:
-        i = Inspector( dg.nodes )
+        i = el.get_inspector( dg )
         m = matcher(i)
         if not m:
             print("There wasn't matches with pattern %d" % index)
@@ -54,19 +64,10 @@ for sentence in f.readlines():
             dictionaries.append(m)
             print( Fore.BLUE + str(m))
             print( Style.RESET_ALL )
-            questions.extend(generate_questions( dg, m))
         index+= 1
 
 print( Fore.BLUE )
 print("DICTIONARIES:")
 for dictionay in dictionaries:
     print(dictionay)
-print( Style.RESET_ALL )
-
-print( Fore.RED)
-print("QUESTIONS:")
-for question in questions:
-    print("Question:", question["question"])
-    print("Answer:", question["answer"])
-    print("\n")
 print( Style.RESET_ALL )

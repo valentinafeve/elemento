@@ -37,9 +37,31 @@ def smart_resolve_words_from_node( dg, node):
     children = dg.nodes.get(node)['deps'].values()
     text = ""
     for child in children:
-        if dg.nodes.get(child[0])['rel']=='amod':
+        done = False
+        if not done and dg.nodes.get(child[0])['rel']=='amod':
             text += smart_resolve_words_from_node(dg, child[0])
             text += " "
+            done = True
+        if not done and dg.nodes.get(child[0])['rel']=='compound':
+            text += smart_resolve_words_from_node(dg, child[0])
+            text += " "
+            done = True
+        if not done and dg.nodes.get(child[0])['rel']=='nmod:poss':
+            text += smart_resolve_words_from_node(dg, child[0])
+            text += " "
+            done = True
+        if not done and dg.nodes.get(child[0])['rel']=='case':
+            text += smart_resolve_words_from_node(dg, child[0])
+            text += " "
+            done = True
+        if not done and dg.nodes.get(child[0])['rel']=='neg':
+            text += smart_resolve_words_from_node(dg, child[0])
+            text += " "
+            done = True
+        if not done and dg.nodes.get(child[0])['tag']=='DT':
+            text += smart_resolve_words_from_node(dg, child[0])
+            text += " "
+            done = True
     text+=dg.nodes.get(node)['word']
     text += " "
     return text
