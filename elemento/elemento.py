@@ -1,5 +1,13 @@
 import re
 from relations import *
+from nltk.parse.corenlp import CoreNLPDependencyParser
+from nltk.parse.dependencygraph import DependencyGraph
+from datetime import datetime
+import sys
+from colorama import Fore, Style
+
+sys.path.insert(1, '../../elemento')
+parser = CoreNLPDependencyParser(url='http://localhost:9000')
 
 def get_inspector( dg ):
     return Inspector(dg.nodes)
@@ -67,7 +75,7 @@ def generate_questions( dg, dictionary):
 def resolve_dictionary( dg, dictionary):
     solved_dictionary = {}
     for key, val in dictionary.items():
-        text = smart_resolve_words_from_node( dg, val)
+        text = smart_resolve_words_from_node( dg, val )
         solved_dictionary[key] = text
     return solved_dictionary
 
@@ -115,3 +123,35 @@ def smart_resolve_words_from_node( dg, node):
     text+=dg.nodes.get(node)['word']
     text += " "
     return text
+
+def get_dictionaries_from_text( text, matchers, verbose=None ):
+    dictionaries = []
+    for sentence in text:
+        if verbose:
+            print( Fore.MAGENTA + str(sentence))
+            print( Style.RESET_ALL )
+        if sentence[0] == "#":
+            continue
+
+        # Parsing from Stanford
+        parse, = parser.raw_parse(sentence)
+        conll = parse.to_conll(4)
+        if verbose:
+            print(conll)
+        dg = DependencyGraph(conll)
+
+        for m in matchers:
+            i = get_inspector(dg)
+            dictionary = m(i)
+            if dictionary:
+                dictionaries.append( dictionary )
+                if verbose:
+                    print( Fore.BLUE + str(dictionary))
+                    print( Style.RESET_ALL )
+    if verbose:
+        print( Fore.BLUE )
+        print("DICTIONARIES:")
+        for dictionary in dictionaries:
+            print(dictionary)
+        print( Style.RESET_ALL )
+    return dictionaries
