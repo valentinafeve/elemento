@@ -2,8 +2,8 @@ import relations as rel
 import tree_generator as tg
 import gensim.downloader as gensim
 
-#model=gensim.load("glove-twitter-25")
-model=None
+model=gensim.load("glove-twitter-25")
+
 
 find_context=rel.ALL_F(
     rel.AND_F(
