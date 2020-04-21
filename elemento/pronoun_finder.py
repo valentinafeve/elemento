@@ -50,4 +50,4 @@ def find_best_fit(inspector,pronoun_state,context):
 
 
 
-inspector=rel.Inspector(tg.parse('the shcool bus was passed by the racecar because it was too slow').nodes)
+inspector=rel.Inspector(tg.parse('the school bus was passed by the racecar because it was too slow').nodes)
