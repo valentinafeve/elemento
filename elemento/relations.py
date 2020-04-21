@@ -1,5 +1,8 @@
 import inspect
 import re
+"""
+    input tree
+"""
 
 class Inspector():
     def __init__(self,nds,st=0):
@@ -13,48 +16,64 @@ class Inspector():
             R+=[Inspector(self.nodes,deps[r][0])]
         return R
 
-    def get_state(self):
-        return self.state
-
     def get_tag(self):
         return self.nodes[self.state]['tag']
 
     def get_rel(self):
+        if self.state==0:
+            return 'None'
         return self.nodes[self.state]['rel']
 
     def get_lemma(self):
         return self.nodes[self.state]['lemma']
 
+    def get_state(self):
+        return self.state
 
-def OR_F(f1,f2):
-    sig1=inspect.signature(f1)
-    sig2=inspect.signature(f2)
-    if(sig1!=sig2):
-        raise Exception('functions must have the same signature')
-    S=str(sig1)[1:-1]
-    rfunct="lambda %s: f1(%s) or f2(%s)"%(S,S,S)
-    return eval(rfunct,{'f1':f1,'f2':f2},None)
 
-def AND_F(f1,f2):
-    def and_value(dic1,dic2):
-        if dic1 and dic2:
-            dic1.update(dic2)
-            return dic1
-        else:
-            return None
-    sig1=inspect.signature(f1)
-    sig2=inspect.signature(f2)
-    if(sig1!=sig2):
-        raise Exception('functions must have the same signature')
-    S=str(sig1)[1:-1]
-    rfunct="lambda %s: and_value(f1(%s),f2(%s))"%(S,S,S)
-    return eval(rfunct,{'f1':f1,'f2':f2,'and_value':and_value},None)
+def any(tree):
+    return {}
 
-def SON_F(f,n):
+def NOT_F(f):
+    def not_f(tree):
+        return None if f(tree) is not None else {'NOT':tree.get_state()}
+    return not_f
+
+def OR_F(*args):
+    F=[]
+    default=None
+    for f in args:
+        if callable(f):
+            if f!=any:
+                F+=[f]
+            else:
+                default={}
+    def or_f(tree):
+        for f in F:
+            r=f(tree)
+            if r:
+                return r
+        return default
+    return or_f
+
+def AND_F(*args):
+    F=[f for f in args if callable(f) and f!=any]
+    def and_f(tree):
+        R={}
+        for f in F:
+            r=f(tree)
+            if not r:
+                return None
+            R.update(r)
+        return R
+    return and_f
+
+def SON_F(f,n=1):
     """
         f must take something with the method childs()
         n is the depth on wich f is satisfied, -1 for any depth
     """
+
     def son_f_rec(tree,n):
         if n==0:
             return None
@@ -77,17 +96,34 @@ def SON_F(f,n):
     rfunct="lambda %s:{}"
     return son_f
 
+def ALL_F(f):
+    def all_f(tree):
+        R=[]
+        for c in tree.children():
+            R+= all_f(c)
+        r=f(tree)
+        R+= [r] if r is not None else []
+        return R
+    return all_f
+
 def MATCH_TAG(match,tag):
-    n=len(tag)
     def match_tag(tree):
-        if tree.get_tag()[:n]==tag:
+        if re.match(tag,tree.get_tag()):
             return {match:tree.get_state()}
     return match_tag
 
 
 def MATCH_REL(match,rel):
-    n=len(rel)
     def match_rel(tree):
-        if tree.get_rel()[:n]==rel:
+        if re.match(rel,tree.get_rel()):
             return {match:tree.get_state()}
     return match_rel
+
+'''
+operators:
+     -> AND_F(fA,SON_F(B,1))
+    exp2=A;B -> AND_F(fA,fB)
+    exp3=A|B -> OR_F(fA,fB)
+    exp4=key<tag>[rel] -> AND_F(MATCH_TAG(key,tag),MATCH_REL(key,rel))
+'''
+
