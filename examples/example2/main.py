@@ -25,7 +25,7 @@ for line in f.readlines():
     matchers.append(matcher)
 
 # Reading sentences from book
-f = open("../books/The_pirate_Modi.txt","r+")
+f = open("../books/Mcfee.txt","r+")
 index_line = 0
 
 for sentence in f.readlines():
