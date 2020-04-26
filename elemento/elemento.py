@@ -7,7 +7,7 @@ def get_inspector( dg ):
 def get_matcher( line ):
     result = {}
     pattern = line.split(' ')
-    wfp = re.findall(r"[\w?']+", pattern[0])
+    wfp = re.findall(r"[\w:']+", pattern[0])
     wfp.reverse()
     wtm = re.findall(r"[\w']+", pattern[1])
     wtm.reverse()
