@@ -3,33 +3,22 @@ import re
 """
     input tree
 """
+class Idee:
+    def __init__(self):
+        self.time = 0
+        self.dictionary = {}
 
-class Inspector():
-    def __init__(self,nds,st=0):
-        self.nodes=nds
-        self.state=st
+    1def __repr__(self):
+        return str(self.dictionary)
 
-    def children(self):
-        R=[]
-        deps=self.nodes[self.state]['deps']
-        for r in deps:
-            R+=[Inspector(self.nodes,deps[r][0])]
-        return R
+    def __str__(self):
+        return str(self.dictionary)
 
-    def get_tag(self):
-        return self.nodes[self.state]['tag']
+    def set_data(self, relation, data):
+        self.dictionary[relation] = data
 
-    def get_rel(self):
-        if self.state==0:
-            return 'None'
-        return self.nodes[self.state]['rel']
-
-    def get_lemma(self):
-        return self.nodes[self.state]['lemma']
-
-    def get_state(self):
-        return self.state
-
+    def update(self, idee):
+        self.dictionary.update(idee.dictionary)
 
 def any(tree):
     return {}
@@ -59,7 +48,7 @@ def OR_F(*args):
 def AND_F(*args):
     F=[f for f in args if callable(f) and f!=any]
     def and_f(tree):
-        R={}
+        R=Idee()
         for f in F:
             r=f(tree)
             if not r:
@@ -109,14 +98,18 @@ def ALL_F(f):
 def MATCH_TAG(match,tag):
     def match_tag(tree):
         if re.match(tag,tree.get_tag()):
-            return {match:tree.get_state()}
+            idee = Idee()
+            idee.set_data(match,tree.get_state())
+            return idee
     return match_tag
 
 
 def MATCH_REL(match,rel):
     def match_rel(tree):
         if re.match(rel,tree.get_rel()):
-            return {match:tree.get_state()}
+            idee = Idee()
+            idee.set_data(match,tree.get_state())
+            return idee
     return match_rel
 
 '''
@@ -126,4 +119,3 @@ operators:
     exp3=A|B -> OR_F(fA,fB)
     exp4=key<tag>[rel] -> AND_F(MATCH_TAG(key,tag),MATCH_REL(key,rel))
 '''
-

@@ -1,8 +1,71 @@
 import re
 from relations import *
+from nltk.parse.corenlp import CoreNLPDependencyParser
+from nltk.parse.dependencygraph import DependencyGraph
 
-def get_inspector( dg ):
-    return Inspector(dg.nodes)
+parser = CoreNLPDependencyParser(url='http://localhost:9000')
+
+class Notion:
+    idees = []
+
+    def __init__(self):
+        matchers = []
+        f = open("/home/vale/Projects/elemento/elemento/patterns.pt","r+")
+        for line in f.readlines():
+            matcher = get_matcher(line)
+            matchers.append(matcher)
+        self.matchers = matchers
+
+    def process_text(self, text):
+        sequencial_time = 0
+        for sentence in text:
+            parse, = parser.raw_parse(sentence)
+            conll = parse.to_conll(4)
+            dg = DependencyGraph(conll)
+            i = Inspector( dg.nodes )
+            for matcher in self.matchers:
+                idee = matcher(i)
+                if not idee.dictionary['WHEN']:
+                    idee.time = sequencial_time
+                if idee:
+                    self.idees.append(idee)
+            sequencial_time += 1
+
+    def process_sentence(self, sentence):
+        parse, = parser.raw_parse(sentence)
+        conll = parse.to_conll(4)
+        dg = DependencyGraph(conll)
+        i = Inspector( dg.nodes )
+        for matcher in self.matchers:
+            idee = matcher(i)
+            if idee:
+                self.idees.append(idee)
+
+class Inspector():
+    def __init__(self,nds,st=0):
+        self.nodes=nds
+        self.state=st
+
+    def children(self):
+        R=[]
+        deps=self.nodes[self.state]['deps']
+        for r in deps:
+            R+=[Inspector(self.nodes,deps[r][0])]
+        return R
+
+    def get_tag(self):
+        return self.nodes[self.state]['tag']
+
+    def get_rel(self):
+        if self.state==0:
+            return 'None'
+        return self.nodes[self.state]['rel']
+
+    def get_lemma(self):
+        return self.nodes[self.state]['lemma']
+
+    def get_state(self):
+        return self.state
 
 def get_matcher( line ):
     result = {}
