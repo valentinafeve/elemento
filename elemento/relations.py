@@ -15,6 +15,9 @@ class Idee:
     def __str__(self):
         return str(self.dictionary)
 
+    def get(self, key):
+        return self.dictionary.get(key, False)
+
     def set_data(self, relation, data):
         self.dictionary[relation] = data
 
@@ -22,11 +25,13 @@ class Idee:
         self.dictionary.update(idee.dictionary)
 
 def any(tree):
-    return {}
+    return Idee()
 
 def NOT_F(f):
     def not_f(tree):
-        return None if f(tree) is not None else {'NOT':tree.get_state()}
+        idee = Idee()
+        idee.set_data('NOT', tree.get_state())
+        return None if f(tree) is not None else idee
     return not_f
 
 def OR_F(*args):
@@ -37,7 +42,7 @@ def OR_F(*args):
             if f!=any:
                 F+=[f]
             else:
-                default={}
+                default=Idee()
     def or_f(tree):
         for f in F:
             r=f(tree)
@@ -83,7 +88,6 @@ def SON_F(f,n=1):
     def son_f(tree):
         return son_f_rec(tree,n)
 
-    rfunct="lambda %s:{}"
     return son_f
 
 def ALL_F(f):

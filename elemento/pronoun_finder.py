@@ -1,6 +1,7 @@
 import relations as rel
 import tree_generator as tg
 import gensim.downloader as gensim
+from inspector import Inspector
 
 model=gensim.load("glove-twitter-25")
 
@@ -20,7 +21,8 @@ def resolve_pronouns(inspector):
     context=find_context(inspector)
     pronouns=find_pronouns(inspector)
     R={}
-    for p in [prp['PRP'] for prp in pronouns]:
+    for p in [ prp.get('PRP') for prp in pronouns]:
+        print(p)
         r=find_best_fit(inspector,p,context)
         R[p]=r
     return R
@@ -39,15 +41,13 @@ def find_best_fit(inspector,pronoun_state,context):
     S=0
     R=0
     words=get_neighbours(inspector,pronoun_state)
-    for C in [ctx['NN'] for ctx in context]:
+    for C in [ctx.get('NN') for ctx in context]:
         candidate=inspector.nodes[C]['word']
-        s=model.n_similarity(candidate,words)
-        if s>S:
-            S,R= s,C
+        if candidate:
+            s=model.n_similarity(candidate,words)
+            if s>S:
+                S,R= s,C
     return R
 
-
-
-
-
-inspector=rel.Inspector(tg.parse('the school bus was passed by the racecar because it was too slow').nodes)
+inspector=Inspector(tg.parse('the school bus was passed by the racecar because it was too slow').nodes)
+print(resolve_pronouns(inspector))
