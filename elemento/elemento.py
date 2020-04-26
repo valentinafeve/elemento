@@ -25,9 +25,9 @@ class Notion:
             i = Inspector( dg.nodes )
             for matcher in self.matchers:
                 idee = matcher(i)
-                if not idee.dictionary['WHEN']:
-                    idee.time = sequencial_time
                 if idee:
+                    if not idee.dictionary.get('WHEN', False):
+                        idee.time = sequencial_time
                     self.idees.append(idee)
             sequencial_time += 1
 

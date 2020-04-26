@@ -8,8 +8,8 @@ class Idee:
         self.time = 0
         self.dictionary = {}
 
-    1def __repr__(self):
-        return str(self.dictionary)
+    def __repr__(self):
+        return 'Dictionary: '+str(self.dictionary)+'\n Time: '+str(self.time)+'\n'
 
     def __str__(self):
         return str(self.dictionary)
