@@ -6,10 +6,11 @@ import re
 class Idee:
     def __init__(self):
         self.time = 0
+        self.dg = None
         self.dictionary = {}
 
     def __repr__(self):
-        return 'Dictionary: '+str(self.dictionary)+'\n Time: '+str(self.time)+'\n'
+        return '<Dictionary: '+str(self.dictionary)+'>'
 
     def __str__(self):
         return str(self.dictionary)
