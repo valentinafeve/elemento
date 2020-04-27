@@ -23,7 +23,6 @@ class Notion:
 
     def __init__(self):
         matchers = []
-        time = {}
         time_dictionary = {}
         f = open("/home/vale/Projects/elemento/elemento/patterns","r+")
         for line in f.readlines():
@@ -81,7 +80,6 @@ class Notion:
             time = line.split('=')[1].strip()
             for word in words.split(','):
                 time_dictionary[word]=Time(time)
-                print(Time(time))
         self.time_dictionary = time_dictionary
 
     def process_text( self, text):
@@ -98,11 +96,12 @@ class Notion:
                 if idee:
                     idee.dg = dg
                     if not idee.dictionary.get('WHEN', False):
-                        now = now + now
+                        now = now + Time()
                         idee.time = now
                     else:
                         time_words = get_words(idee.dictionary['WHEN'], idee.dg, filter=['det'])
-                        idee.time =  Time.get_time( time_words, self.time_dictionary )
+                        now =  now + Time.get_time( time_words, self.time_dictionary )
+                        idee.time = now
                     self.idees.append(idee)
                     sequencial_time += 1
 

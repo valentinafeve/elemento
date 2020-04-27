@@ -31,7 +31,8 @@ class Time:
                 self.time = '?'*(self.len-len(string)) + string
 
         else:
-            string = ''.join('?' for i in range(6))
+            nums = ['1','2','3','4','5','6','7','8','9','0','?','?']
+            string = ''.join(random.choice(nums) for i in range(6))
             self.time = '?'*(self.len-len(string)) + string
 
     def __str__(self):
@@ -109,11 +110,9 @@ class Time:
         return self.__class__( ambiguous )
 
     def get_time( words, time_dictionary ):
-
         time = Time()
         for word in words:
             for k, time_temp in time_dictionary.items():
                 if k == word:
                     time += time_temp
-
         return time
