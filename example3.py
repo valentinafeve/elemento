@@ -6,4 +6,7 @@ notion = el.Notion()
 f = open("books/Modi0.txt","r+")
 text = f.readlines()
 notion.process_text(text)
-print(notion.idees)
+
+for idee in notion.idees:
+    print(idee.dictionary)
+    print(idee.time)

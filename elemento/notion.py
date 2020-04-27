@@ -18,27 +18,14 @@ def get_words( node, dg, filter=None):
     words.append(dg.nodes.get(node)['word'])
     return words
 
-def process_time( node, dg ):
-
-    MOMENT = Time()
-    SECOND = Time('55??', keywords=['second'])
-    MINUTE = Time('55????', keywords=['minute'])
-    HOUR = Time('55??????', keywords=['hour'])
-    MORNING = Time('01????????', keywords=['morning'])
-    AFTERNOON = Time('02????????', keywords=['afternoon'])
-    EVENING = Time('03????????', keywords=['evening'])
-    NIGHT = Time('04????????', keywords=['night'])
-    DAY = Time('55??????????', keywords=['day'])
-    words = get_words(node, dg, filter=['det'])
-    time = Time()
-    return MOMENT
-
 class Notion:
     idees = []
 
     def __init__(self):
         matchers = []
-        f = open("/home/vale/Projects/elemento/elemento/patterns.pt","r+")
+        time = {}
+        time_dictionary = {}
+        f = open("/home/vale/Projects/elemento/elemento/patterns","r+")
         for line in f.readlines():
             result = {}
             pattern = line.split(' ')
@@ -88,6 +75,14 @@ class Notion:
             matcher = result
             matchers.append(matcher)
         self.matchers = matchers
+        f = open("/home/vale/Projects/elemento/elemento/time","r+")
+        for line in f.readlines():
+            words = line.split('=')[0].strip()
+            time = line.split('=')[1].strip()
+            for word in words.split(','):
+                time_dictionary[word]=Time(time)
+                print(Time(time))
+        self.time_dictionary = time_dictionary
 
     def process_text( self, text):
         sequencial_time = 0
@@ -106,7 +101,8 @@ class Notion:
                         now = now + now
                         idee.time = now
                     else:
-                        idee.time =  process_time( idee.dictionary['WHEN'], dg)
+                        time_words = get_words(idee.dictionary['WHEN'], idee.dg, filter=['det'])
+                        idee.time =  Time.get_time( time_words, self.time_dictionary )
                     self.idees.append(idee)
                     sequencial_time += 1
 
