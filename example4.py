@@ -3,7 +3,7 @@ import elemento.elemento as el
 
 notion = el.Notion()
 
-f = open("books/The_pirate_Modi.txt","r+")
+f = open("books/if.txt","r+")
 text = f.readlines()
 notion.process_text(text, verbose=True)
 

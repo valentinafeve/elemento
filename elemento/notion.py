@@ -4,6 +4,7 @@ from elemento.time import Time
 from elemento.inspector import Inspector
 from nltk.parse.corenlp import CoreNLPDependencyParser
 from nltk.parse.dependencygraph import DependencyGraph
+from colorama import Fore, Style
 
 parser = CoreNLPDependencyParser(url='http://localhost:9000')
 
@@ -37,9 +38,11 @@ class Notion:
             parent = None
 
             deep = 0
-
+            negation = False
             pattern[0]+="."
             for c in pattern[0]:
+                if c == '!':
+                    negation = True
                 if c == '{':
                     deep+=1
                     if deep == 2:
@@ -47,17 +50,25 @@ class Notion:
                             relations.pop()
                             parent = f
 
-                    a = wtm.pop()
                     b = wfp.pop()
+                    if negation:
+                        a = ''
+                    else:
+                        a = wtm.pop()
 
                     if b.isupper():
                         f = MATCH_TAG(a, b)
                     else:
                         f = MATCH_REL(a, b)
+
+                    if negation:
+                        f = NOT_F(f)
+                        negation = False
+
                     if parent:
                         f = SON_F(f,1)
-
                     relations.append(f)
+                    
                 if c == '}':
                     deep-=1
                     if deep == 0:
@@ -82,13 +93,19 @@ class Notion:
                 time_dictionary[word]=Time(time)
         self.time_dictionary = time_dictionary
 
-    def process_text( self, text):
+    def process_text( self, text, verbose=None):
         sequencial_time = 0
         now = Time()
         for sentence in text:
+            if sentence[0] == '#':
+                continue
             parse, = parser.raw_parse(sentence)
             conll = parse.to_conll(4)
-            print(conll)
+            if verbose:
+                cont = 1
+                for line in conll.split('\n'):
+                    print(f'{cont}:\t{line} ')
+                    cont+= 1
             dg = DependencyGraph(conll)
             i = Inspector( dg.nodes )
             for matcher in self.matchers:
@@ -104,6 +121,11 @@ class Notion:
                         idee.time = now
                     self.idees.append(idee)
                     sequencial_time += 1
+                    if verbose:
+                        print( Fore.GREEN )
+                        print('Sentence',sentence)
+                        print('Idee',idee)
+                        print( Style.RESET_ALL )
 
     def process_sentence(self, sentence):
         parse, = parser.raw_parse(sentence)

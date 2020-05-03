@@ -1,8 +1,6 @@
 import inspect
 import re
-"""
-    input tree
-"""
+
 class Idee:
     def __init__(self):
         self.time = 0
@@ -14,6 +12,9 @@ class Idee:
 
     def __str__(self):
         return str(self.dictionary)
+
+    def __bool__(self):
+        return True if self.dictionary else False
 
     def get(self, key):
         return self.dictionary.get(key, False)
@@ -29,9 +30,7 @@ def any(tree):
 
 def NOT_F(f):
     def not_f(tree):
-        idee = Idee()
-        idee.set_data('NOT', tree.get_state())
-        return None if f(tree) is not None else idee
+        return None if f(tree) else Idee()
     return not_f
 
 def OR_F(*args):
