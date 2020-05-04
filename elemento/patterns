@@ -3,4 +3,4 @@
 {VB!{IN}{nsubj}{dobj}} {VERB{WHO}{WHAT}}
 {VB{IN}{nsubj}{dobj}} {VERB{MARK}{WHO}{WHAT}}
 {JJ{nsubj}{cop}} {WHAT{WHO}{VERB}}
-{VB{nmod:tmod}} {VERB{WHEN}}
+{VB{nsubj}{nmod:tmod}} {VERB{WHO}{WHEN}}

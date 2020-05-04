@@ -113,7 +113,6 @@ class Time:
     def get_time( words, time_dictionary ):
         time = Time()
         for word in words:
-            time.words.append(word)
             for k, time_temp in time_dictionary.items():
                 if k == word:
                     time += time_temp

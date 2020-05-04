@@ -68,7 +68,7 @@ class Notion:
                     if parent:
                         f = SON_F(f,1)
                     relations.append(f)
-                    
+
                 if c == '}':
                     deep-=1
                     if deep == 0:
@@ -115,10 +115,12 @@ class Notion:
                     if not idee.dictionary.get('WHEN', False):
                         now = now + Time()
                         idee.time = now
+                        idee.time.words = "now"
                     else:
                         time_words = get_words(idee.dictionary['WHEN'], idee.dg, filter=['det'])
                         now =  now + Time.get_time( time_words, self.time_dictionary )
                         idee.time = now
+                        idee.time.words = time_words
                     self.idees.append(idee)
                     sequencial_time += 1
                     if verbose:
