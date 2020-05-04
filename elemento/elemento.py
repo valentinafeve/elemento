@@ -15,10 +15,17 @@ def generate_questions( idee ):
     solved_dictionary = resolve_dictionary( dg, dictionary)
     for key, val in dictionary.items():
         if key == "WHO":
-            question = key.lower() + ' ' + solved_dictionary["VERB"] + ' ' + solved_dictionary["WHAT"]+'?'
-            questions.append({"question": question, "answer": solved_dictionary[key]})
+            if solved_dictionary.get("WHAT", False):
+                question = key.lower() + ' ' + solved_dictionary["VERB"] + ' ' + solved_dictionary["WHAT"]+'?'
+                questions.append({"question": question, "answer": solved_dictionary[key]})
+            else:
+                question = key.lower() + ' ' + solved_dictionary["VERB"] +'?'
+                questions.append({"question": question, "answer": solved_dictionary[key]})
         if key == "WHAT":
-            question = key.lower() + ' ' + solved_dictionary["WHO"]+ ' ' + solved_dictionary["VERB"]+'?'
+            if solved_dictionary.get("MARK", False):
+                question = key.lower() + ' ' + solved_dictionary["WHO"]+ ' ' + solved_dictionary["VERB"]+solved_dictionary["MARK"]+'?'
+            else:
+                question = key.lower() + ' ' + solved_dictionary["WHO"]+ ' ' + solved_dictionary["VERB"]+'?'
             questions.append({"question": question, "answer": solved_dictionary[key]})
     return questions
 

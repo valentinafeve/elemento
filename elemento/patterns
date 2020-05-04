@@ -1,5 +1,5 @@
-{VB!{IN}{nsubj}} {VERB{WHO}}
-{VB{IN}{nsubj}} {VERB{MARK}{WHO}}
+{VB!{IN}{nsubj}!{dobj}} {VERB{WHO}}
+{VB{IN}{nsubj}!{dobj}} {VERB{MARK}{WHO}}
 {VB!{IN}{nsubj}{dobj}} {VERB{WHO}{WHAT}}
 {VB{IN}{nsubj}{dobj}} {VERB{MARK}{WHO}{WHAT}}
 {JJ{nsubj}{cop}} {WHAT{WHO}{VERB}}
