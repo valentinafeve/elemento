@@ -8,6 +8,7 @@ class Time:
 
         self.past = False
         self.future = False
+        self.words = []
 
         if past:
             self.past = past
