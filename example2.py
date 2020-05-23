@@ -4,9 +4,9 @@ from colorama import Fore, Style
 
 notion = el.Notion()
 
-f = open("books/The_pirate_Modi.txt","r+")
+f = open("books/1_Heart_of_gold.txt","r+")
 text = f.readlines()
-notion.process_text(text)
+notion.process_text(text, verbose=True)
 print(notion.idees)
 
 questions = []
