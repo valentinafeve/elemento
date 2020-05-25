@@ -1,7 +1,7 @@
 import sys
 import elemento.elemento as el
 
-notion = el.Notion()
+notion = el.Notion('elemento/patterns')
 
 f = open("books/if.txt","r+")
 text = f.readlines()

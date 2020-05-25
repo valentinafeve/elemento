@@ -1,11 +1,15 @@
 import inspect
 import re
+import gensim.downloader as gensim
+
+model=gensim.load("glove-twitter-25")
 
 class Idee:
     def __init__(self):
         self.time = 0
         self.dg = None
         self.dictionary = {}
+        self.weight=0
 
     def __repr__(self):
         return '<Dictionary: '+str(self.dictionary)+'>'
@@ -15,6 +19,12 @@ class Idee:
 
     def __bool__(self):
         return True if self.dictionary else False
+    
+    def get_weight(self):
+        words=self.get_words()
+        words=[words[k] for k in words]
+        self.weight=model.n_similarity(words[0],words)
+        return self.weight
 
     def get(self, key):
         return self.dictionary.get(key, False)
@@ -24,6 +34,12 @@ class Idee:
 
     def update(self, idee):
         self.dictionary.update(idee.dictionary)
+
+    def get_words(self):
+        R={}
+        for k in self.dictionary:
+            R[k]=self.dg.nodes[self.dictionary[k]]['word']
+        return R
 
 def any(tree):
     return Idee()

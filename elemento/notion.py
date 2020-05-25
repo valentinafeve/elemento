@@ -22,10 +22,14 @@ def get_words( node, dg, filter=None):
 class Notion:
     idees = []
 
-    def __init__(self):
+    def __init__(self,paterns_f,time_f):
+        '''
+        paterns_f:path to paterns, must be string
+        time_fpath to time, must be string
+        '''
         matchers = []
         time_dictionary = {}
-        f = open("/home/vale/Projects/elemento/elemento/patterns","r+")
+        f = open(paterns_f,"r+")
         for line in f.readlines():
             result = {}
             pattern = line.split(' ')
@@ -85,7 +89,7 @@ class Notion:
             matcher = result
             matchers.append(matcher)
         self.matchers = matchers
-        f = open("/home/vale/Projects/elemento/elemento/time","r+")
+        f = open(time_f,"r+")
         for line in f.readlines():
             words = line.split('=')[0].strip()
             time = line.split('=')[1].strip()
