@@ -22,7 +22,7 @@ class Idee:
     
     def get_weight(self):
         words=self.get_words()
-        words=[words[k] for k in words]
+        words=[words[k] for k in words if words[k] in model]
         self.weight=model.n_similarity(words[0],words)
         return self.weight
 

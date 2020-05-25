@@ -19,7 +19,7 @@ print(notion)
 
 idees=notion.idees
 
-idees.sort(key=lambda idee: idee.weight)
+idees.sort(key=lambda idee: idee.get_weight())
 
 for idee in notion.idees:
     print(idee.get_words())
