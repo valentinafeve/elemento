@@ -101,7 +101,7 @@ class Notion:
         sequencial_time = 0
         now = Time()
         for sentence in text:
-            if sentence[0] == '#':
+            if not sentence or sentence[0] == '#':
                 continue
             parse, = parser.raw_parse(sentence)
             conll = parse.to_conll(4)
