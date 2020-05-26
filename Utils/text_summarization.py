@@ -1,23 +1,15 @@
-from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
-from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
-from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
+from summarize import summarize
 import sys
 
-document = sys.argv[1]
+if (len(sys.argv) < 3 or len(sys.argv) > 4):
+    print("Correct usage: ")
+    print("python main.py sentence ratio")
+    print("Example:")
+    print("python main.py \"Bob is cute and quirky. Together they go on wonderful\" 0.2")
+ratio = float(sys.argv[2])
+to_summarize=sys.argv[1]
+sentence_count = int(len(to_summarize.split('.'))*ratio)
+summarized = summarize(to_summarize, sentence_count=sentence_count)
 
-# Object of automatic summarization.
-auto_abstractor = AutoAbstractor()
-# Set tokenizer.
-auto_abstractor.tokenizable_doc = SimpleTokenizer()
-# Set delimiter for making a list of sentence.
-auto_abstractor.delimiter_list = [".", "\n"]
-# Object of abstracting and filtering document.
-abstractable_doc = TopNRankAbstractor()
-# Summarize document.
-result_dict = auto_abstractor.summarize(document, abstractable_doc)
+print(summarized)
 
-# Output result.
-for sentence in result_dict["summarize_result"]:
-    print(sentence)
-
-print(result_dict['summarize_result'][0])
