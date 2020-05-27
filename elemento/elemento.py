@@ -63,29 +63,15 @@ def smart_resolve_words_from_node( dg, node):
     solved_dictionary = {}
     children = dg.nodes.get(node)['deps'].values()
     text = ""
+    rels = ['amod','compund','nmod:poss','case','neg']
+    tags = ['DT']
     for child in children:
         done = False
-        if not done and dg.nodes.get(child[0])['rel']=='amod':
+        if not done and dg.nodes.get(child[0])['rel'] in rels:
             text += smart_resolve_words_from_node(dg, child[0])
             text += " "
             done = True
-        if not done and dg.nodes.get(child[0])['rel']=='compound':
-            text += smart_resolve_words_from_node(dg, child[0])
-            text += " "
-            done = True
-        if not done and dg.nodes.get(child[0])['rel']=='nmod:poss':
-            text += smart_resolve_words_from_node(dg, child[0])
-            text += " "
-            done = True
-        if not done and dg.nodes.get(child[0])['rel']=='case':
-            text += smart_resolve_words_from_node(dg, child[0])
-            text += " "
-            done = True
-        if not done and dg.nodes.get(child[0])['rel']=='neg':
-            text += smart_resolve_words_from_node(dg, child[0])
-            text += " "
-            done = True
-        if not done and dg.nodes.get(child[0])['tag']=='DT':
+        if not done and dg.nodes.get(child[0])['tag'] in tags:
             text += smart_resolve_words_from_node(dg, child[0])
             text += " "
             done = True

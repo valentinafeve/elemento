@@ -22,14 +22,21 @@ def get_words( node, dg, filter=None):
 class Notion:
     idees = []
 
-    def __init__(self,paterns_f,time_f):
+    def __init__(self,patterns_f=None,time_f=None):
         '''
-        paterns_f:path to paterns, must be string
-        time_fpath to time, must be string
+        patterns_f: path to patterns, must be string
+        time_f: path to time, must be string
         '''
         matchers = []
         time_dictionary = {}
-        f = open(paterns_f,"r+")
+
+        if not patterns_f:
+            patterns_f = 'elemento/patterns'
+
+        if not time_f:
+            time_f = 'elemento/time'
+
+        f = open(patterns_f,"r+")
         for line in f.readlines():
             result = {}
             pattern = line.split(' ')
