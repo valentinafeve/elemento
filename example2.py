@@ -4,16 +4,16 @@ from colorama import Fore, Style
 
 notion = el.Notion()
 
-f = open("books/1_Heart_of_gold.txt","r+")
+filename = sys.argv[1]
+f = open("books/"+filename,"r+")
 text = f.readlines()
 notion.process_text(text, verbose=True)
-print(notion.idees)
 
 questions = []
 for idee in notion.idees:
     questions.extend( el.generate_questions( idee ))
 
-print( Fore.RED)
+print( Fore.YELLOW)
 print("QUESTIONS:")
 for question in questions:
     print("Question:", question["question"])
