@@ -1,44 +1,34 @@
 import re
 from nltk.parse.corenlp import CoreNLPDependencyParser
 from nltk.parse.dependencygraph import DependencyGraph
-import random
-import re
 from elemento.relations import *
 from elemento.time import Time
 from elemento.notion import Notion
 from elemento.inspector import Inspector
 
 def generate_questions( idee ):
+
     dictionary = idee.dictionary
     dg = idee.dg
     questions = []
     solved_dictionary = resolve_dictionary( dg, dictionary)
-    for key, val in dictionary.items():
-        if key == "WHO":
-            if solved_dictionary.get("WHAT", False):
-                question = key.lower() + ' ' + solved_dictionary["VERB"] + ' ' + solved_dictionary["WHAT"]+'?'
-                questions.append({"question": question, "answer": solved_dictionary[key]})
-            else:
-                question = key.lower() + ' ' + solved_dictionary["VERB"] +'?'
-                questions.append({"question": question, "answer": solved_dictionary[key]})
-        if key == "WHAT":
-            if solved_dictionary.get("MARK", False):
-                question = key.lower() + ' ' + solved_dictionary["WHO"]+ ' ' + solved_dictionary["VERB"]+solved_dictionary["MARK"]+'?'
-            else:
-                question = key.lower() + ' ' + solved_dictionary["WHO"]+ ' ' + solved_dictionary["VERB"]+'?'
-            questions.append({"question": question, "answer": solved_dictionary[key]})
-        if key == "WHEN":
-            if solved_dictionary.get("WHO", False) and solved_dictionary.get("VERB", False) and solved_dictionary.get("WHAT", False):
-                question = key.lower() + ' ' + solved_dictionary["WHO"] + ' ' + solved_dictionary["VERB"] + solved_dictionary["WHAT"]
-                words = idee.time.words
-                words_str = ' '.join([str(word)+' ' for word in words])
-                questions.append({"question": question, "answer": words_str })
-            else:
-                if solved_dictionary.get("WHO", False) and solved_dictionary.get("VERB", False):
-                    question = key.lower() + ' ' + solved_dictionary["WHO"] + ' ' + solved_dictionary["VERB"]
-                    words = idee.time.words
-                    words_str = ' '.join([str(word)+' ' for word in words])
-                    questions.append({"question": question, "answer": words_str })
+    f = open('elemento/patterns/questions','r+')
+    for line in f.readlines():
+        words = line.split('=')[0]
+        template = line.split('=')[1]
+        answer = line.split('=')[2]
+
+        valid_template = True
+        for word in words.split(','):
+            if not word in list(dictionary.keys()):
+                valid_template = False
+
+        if valid_template:
+            for k, v in solved_dictionary.items():
+                template = template.replace("{"+k+"}",v)
+                answer = answer.replace("{"+k+"}",v)
+            questions.append({"question": template, "answer": answer})
+
     return questions
 
 def resolve_dictionary( dg, dictionary):
@@ -63,7 +53,7 @@ def smart_resolve_words_from_node( dg, node):
     solved_dictionary = {}
     children = dg.nodes.get(node)['deps'].values()
     text = ""
-    rels = ['amod','compund','nmod:poss','case','neg']
+    rels = ['amod','compound','nmod:poss','case','neg','advcl','mark']
     tags = ['DT']
     for child in children:
         done = False

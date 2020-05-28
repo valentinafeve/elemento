@@ -1,6 +1,6 @@
 {VB!{IN}{nsubj}!{dobj}} {VERB{WHO}}
 {VB{IN}{nsubj}!{dobj}} {VERB{MARK}{WHO}}
-{VB!{IN}{nsubj}{dobj}} {VERB{WHO}{WHAT}}
+{VB{nsubj}{dobj}} {VERB{WHO}{WHAT}}
 {VB{IN}{nsubj}{dobj}} {VERB{MARK}{WHO}{WHAT}}
 {JJ{nsubj}{cop}} {WHAT{WHO}{VERB}}
 {VB{nsubj}{nmod:tmod}} {VERB{WHO}{WHEN}}

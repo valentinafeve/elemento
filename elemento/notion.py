@@ -31,13 +31,15 @@ class Notion:
         time_dictionary = {}
 
         if not patterns_f:
-            patterns_f = 'elemento/patterns'
+            patterns_f = 'elemento/patterns/idee'
 
         if not time_f:
-            time_f = 'elemento/time'
+            time_f = 'elemento/patterns/time'
 
+        # Reading idee patterns
         f = open(patterns_f,"r+")
         for line in f.readlines():
+
             result = {}
             pattern = line.split(' ')
             wfp = re.findall(r"[\w:']+", pattern[0])
@@ -50,7 +52,7 @@ class Notion:
 
             deep = 0
             negation = False
-            pattern[0]+="."
+
             for c in pattern[0]:
                 if c == '!':
                     negation = True
@@ -67,35 +69,32 @@ class Notion:
                     else:
                         a = wtm.pop()
 
-                    if b.isupper():
-                        f = MATCH_TAG(a, b)
-                    else:
-                        f = MATCH_REL(a, b)
+                    f = MATCH_TAG(a, b) if b.isupper() else MATCH_REL(a, b)
 
                     if negation:
                         f = NOT_F(f)
                         negation = False
 
-                    if parent:
-                        f = SON_F(f,1)
                     relations.append(f)
 
                 if c == '}':
                     deep-=1
                     if deep == 0:
-                        f = relations.pop()
+                        sons = None
                         while relations:
-                            f = AND_F(f, relations.pop())
-                        f = AND_F(parent, f)
-                        parent = f
-
-                    if not relations:
+                            f = relations.pop()
+                            son = SON_F(f, 1)
+                            sons = AND_F(sons, son) if sons else son
+                        f = AND_F(parent, sons)
                         parent = SON_F(f,-1)
 
             result = parent
             matcher = result
             matchers.append(matcher)
+
         self.matchers = matchers
+
+        # Reading time
         f = open(time_f,"r+")
         for line in f.readlines():
             words = line.split('=')[0].strip()

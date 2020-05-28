@@ -2,7 +2,7 @@ import inspect
 import re
 import gensim.downloader as gensim
 
-model=gensim.load("glove-twitter-25")
+# model=gensim.load("glove-twitter-25")
 
 class Idee:
     def __init__(self):
@@ -19,12 +19,12 @@ class Idee:
 
     def __bool__(self):
         return True if self.dictionary else False
-    
-    def get_weight(self):
-        words=self.get_words()
-        words=[words[k] for k in words if words[k] in model]
-        self.weight=model.n_similarity(words[0],words)
-        return self.weight
+
+    # def get_weight(self):
+    #     words=self.get_words()
+    #     words=[words[k] for k in words if words[k] in model]
+    #     self.weight=model.n_similarity(words[0],words)
+    #     return self.weight
 
     def get(self, key):
         return self.dictionary.get(key, False)

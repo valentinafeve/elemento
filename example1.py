@@ -9,7 +9,7 @@ f = open("books/"+filename,"r+")
 text = f.readlines()
 notion.process_text(text, verbose=True)
 
-print( Fore.CYAN)
+print( Fore.CYAN )
 for idee in notion.idees:
     print(idee)
 print( Style.RESET_ALL )
