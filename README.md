@@ -23,26 +23,32 @@ java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer \
 
 #### Example 1: Getting Idea's dictionary from text
 
-> Where "heartofgold" is the name of the text which must be available in books folder.
+> Where "thepiratemodi" is the name of the text which must be available in books folder.
 
 ```bash
-python example1.py "heartofgold" 
+python example1.py "thepiratemodi"
 ```
 
 #### Example 2: Generating questions from text
 
-> Where "heartofgold" is the name of the text which must be available in books folder.
+> Where "thepiratemodi" is the name of the text which must be available in books folder.
 
 ```bash
-python example2.py "heartofgold" 
+python example2.py "thepiratemodi"
 ```
 
 #### Example 3: Getting Idea's dictionary from summarized text
 
-> Where "heartofgold" is the name of the text which must be available in books folder and 0.4 the ratio of summarization.
+> Where "thepiratemodi" is the name of the text which must be available in books folder and 0.4 the ratio of summarization.
 
 ```bash
-python example3.py "heartofgold" 0.4 
+python example3.py "thepiratemodi" 0.4
 ```
 
+#### Example 4:  Generating questions from summarized text
 
+> Where "thepiratemodi" is the name of the text which must be available in books folder and 0.4 the ratio of summarization.
+
+```bash
+python example3.py "thepiratemodi" 0.4
+```
