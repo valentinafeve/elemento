@@ -1,4 +1,4 @@
-from summarize import summarize
+import summarize
 import sys
 import elemento.elemento as el
 from colorama import Fore, Style
@@ -12,7 +12,10 @@ text = f.readlines()
 RATIO = float(sys.argv[2])
 to_summarize=''.join([phrase for phrase in text])
 sentence_count = int(len(text)*RATIO)
-summarized = summarize( to_summarize, sentence_count=sentence_count)
+
+ss = summarize.SimpleSummarizer()
+print(to_summarize)
+summarized = ss.summarize( to_summarize, sentence_count)
 notion.process_text(summarized.split('.'), verbose=True)
 
 questions = []

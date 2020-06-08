@@ -19,6 +19,8 @@ java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer \
 -status_port 9000 -port 9000 -timeout 15000 &
 ```
 
+> Some examples require (summarize)[https://github.com/thavelick/summarize.git]
+
 ### Examples execution examples
 
 #### Example 1: Getting Idea's dictionary from text
