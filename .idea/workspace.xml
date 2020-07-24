@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="1583ffa9-7d18-4b4d-84c2-5cf99c4ff352" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/books/fetuccini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/books/summeria" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seeker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elemento/elemento.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/elemento.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elemento/notion.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/notion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elemento/patterns" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/elemento/time" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example1.py" beforeDir="false" afterPath="$PROJECT_DIR$/example1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elemento/patterns/idee" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/patterns/idee" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elemento/relations.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/relations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/tree_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/tree_generator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -26,6 +55,41 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager">
+    <configuration name="seeker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="elemento" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/seeker.py" />
+      <option name="PARAMETERS" value="&quot;fetuccini&quot; &quot;What is fettuccini made of?&quot;" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.seeker" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -38,10 +102,55 @@
       <option name="presentableId" value="Default" />
       <updated>1590651333305</updated>
       <workItem from="1590651335236" duration="257000" />
+      <workItem from="1595610103719" duration="20928000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="139" y="16" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1595613698085">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="139" y="16" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.768@0.0.1366.768" timestamp="1595613698085" />
+    <state x="360" y="139" width="632" height="392" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595615358898">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="360" y="139" width="632" height="392" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1595615358898" />
+    <state width="1316" height="212" key="GridCell.Tab.0.bottom" timestamp="1595624032165">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1316" height="212" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1595624032165" />
+    <state width="1316" height="212" key="GridCell.Tab.0.center" timestamp="1595624032164">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1316" height="212" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1595624032164" />
+    <state width="1316" height="212" key="GridCell.Tab.0.left" timestamp="1595624032164">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1316" height="212" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1595624032164" />
+    <state width="1316" height="212" key="GridCell.Tab.0.right" timestamp="1595624032165">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1316" height="212" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1595624032165" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1595630692939">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1595630692939" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/elemento$seeker.coverage" NAME="seeker Coverage Results" MODIFIED="1595613700148" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

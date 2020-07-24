@@ -29,6 +29,12 @@ class Idee:
     def get(self, key):
         return self.dictionary.get(key, False)
 
+    def keys(self):
+        return self.dictionary.keys()
+
+    def values(self):
+        return self.dictionary.values()
+
     def set_data(self, relation, data):
         self.dictionary[relation] = data
 

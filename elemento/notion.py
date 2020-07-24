@@ -1,4 +1,3 @@
-import re
 from elemento.relations import *
 from elemento.time import Time
 from elemento.inspector import Inspector
@@ -28,6 +27,7 @@ class Notion:
         time_f: path to time, must be string
         '''
         matchers = []
+        self.idees = []
         time_dictionary = {}
 
         if not patterns_f:
@@ -39,6 +39,8 @@ class Notion:
         # Reading idee patterns
         f = open(patterns_f,"r+")
         for line in f.readlines():
+            if line[0] == "#":
+                continue
 
             result = {}
             pattern = line.split(' ')
