@@ -1,13 +1,17 @@
+# Questions
+{VB{WP}{nsubj}} {VERB{WP}{WHO}}
+{VB{aux}{WP}{nsubj}} {VERB{AUX}{WP}{WHO}}
+{WP{cop}{nsubj}} {WP{VERB}{WHO}}
+{VB{advmod}{nsubj}} {VERB{AUX}{WHO}}
+{VB{advmod}{aux}{obj}} {VERB{AUX}{AUX_2}{WHO}}
+# {WRB{VB}{NN}} {WRB{VERB}{WHO}}
 {VB!{IN}{nsubj}!{dobj}} {VERB{WHO}}
 {VB{IN}{nsubj}!{dobj}} {VERB{MARK}{WHO}}
-{VB{nsubj}{dobj}} {VERB{WHO}{WHAT}}
-{VB{nsubj}{obj}} {VERB{WHO}{HOW}}
-{NN{nsubj}{cop}} {WHAT{WHO}{VERB}}
+{VB{NN}{dobj}} {VERB{WHO}{WHAT}}
+{VB{NN}{obj}} {VERB{WHO}{HOW}}
+{VB{NN}{obj}} {VERB{WHO}{WHAT}}
+{NN{NN}{cop}} {WHAT{WHO}{VERB}}
 {VB{IN}{nsubj}{dobj}} {VERB{MARK}{WHO}{WHAT}}
 {JJ{nsubj}{cop}} {WHAT{WHO}{VERB}}
 {VB{nsubj}{nmod:tmod}} {VERB{WHO}{WHEN}}
 {NN{VB}{advcl{VB}{obj}}} {WHO{AUX}{AUX_2{VERB}{WHAT}}}
-# Questions
-{WRB{VB}{NN}} {WRB{VERB}{WHO}}
-{WP{cop}{nsubj}} {WP{VERB}{WHO}}
-{VB{advmod}{aux}{obj}} {VERB{AUX}{AUX_2}{WHO}}

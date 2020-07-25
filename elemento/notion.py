@@ -1,3 +1,4 @@
+from elemento import pronoun_finder
 from elemento.relations import *
 from elemento.time import Time
 from elemento.inspector import Inspector
@@ -20,8 +21,8 @@ def get_words( node, dg, filter=None):
 
 class Notion:
     idees = []
-
-    def __init__(self,patterns_f=None,time_f=None):
+    model = None
+    def __init__(self,patterns_f=None,time_f=None,model=None):
         '''
         patterns_f: path to patterns, must be string
         time_f: path to time, must be string
@@ -29,7 +30,8 @@ class Notion:
         matchers = []
         self.idees = []
         time_dictionary = {}
-
+        if not model:
+            self.model=gensim.load("glove-wiki-gigaword-300")
         if not patterns_f:
             patterns_f = 'elemento/patterns/idee'
 
@@ -120,6 +122,7 @@ class Notion:
                     cont+= 1
             dg = DependencyGraph(conll)
             i = Inspector( dg.nodes )
+
             for matcher in self.matchers:
                 idee = matcher(i)
                 if idee:

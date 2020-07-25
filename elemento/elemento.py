@@ -7,8 +7,9 @@ from elemento.notion import Notion
 from elemento.inspector import Inspector
 import nltk
 from nltk.corpus import stopwords
+import elemento.pronoun_finder
 
-exceptions = ['who', 'what', 'when', 'where', 'is', 'was', 'were']
+exceptions = ['how', 'who', 'what', 'when', 'where', 'is', 'was', 'were']
 
 
 def generate_questions(idee):
@@ -51,10 +52,10 @@ def resolve_dictionary_wv(idee: Idee, model=None):
     dictionary = idee.dictionary
     solved_dictionary = {}
     for key, val in dictionary.items():
-        rels = ['compound']
+        rels = ['compound','nmod','case','amod','conj']
         text = smart_resolve_words_from_node(dg, val, rels=rels).lower()
         vectors = []
-        for word in text.split(' '):
+        for word in text.split():
             if word and (word in exceptions or word not in stopwords.words('english')):
                 try:
                     word_vector = model.wv.get_vector(word)
@@ -67,7 +68,10 @@ def resolve_dictionary_wv(idee: Idee, model=None):
     return solved_dictionary
 
 
-def resolve_words_from_node(dg, node):
+def resolve_words_from_node(dg, node, solved_pronouns=None):
+    if solved_pronouns:
+        if node in solved_pronouns:
+            node = solved_pronouns[node]
     solved_dictionary = {}
     children = dg.nodes.get(node)['deps'].values()
     text = ""
@@ -79,8 +83,10 @@ def resolve_words_from_node(dg, node):
     return text
 
 
-def smart_resolve_words_from_node(dg, node, rels=None):
-    solved_dictionary = {}
+def smart_resolve_words_from_node(dg, node, rels=None, solved_pronouns=None):
+    if solved_pronouns:
+        if node in solved_pronouns:
+            node = solved_pronouns[node]
     children = dg.nodes.get(node)['deps'].values()
     text = ""
     if not rels:

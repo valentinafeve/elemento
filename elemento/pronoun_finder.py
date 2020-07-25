@@ -1,10 +1,7 @@
-import relations as rel
-import tree_generator as tg
+import elemento.relations as rel
+import elemento.tree_generator as tg
 import gensim.downloader as gensim
-from inspector import Inspector
-
-model=gensim.load("glove-twitter-25")
-
+from elemento.inspector import Inspector
 
 find_context=rel.ALL_F(
     rel.AND_F(
@@ -17,13 +14,13 @@ find_pronouns=rel.ALL_F(
     rel.MATCH_TAG('PRP','PRP')
 )
 
-def resolve_pronouns(inspector):
+def resolve_pronouns(inspector,model=None):
     context=find_context(inspector)
     pronouns=find_pronouns(inspector)
     R={}
     for p in [ prp.get('PRP') for prp in pronouns]:
         print(p)
-        r=find_best_fit(inspector,p,context)
+        r=find_best_fit(inspector,p,context,model=model)
         R[p]=r
     return R
 
@@ -37,7 +34,9 @@ def get_neighbours(inspector,state):
             words+=[nodes[i]['word']]
     return words
 
-def find_best_fit(inspector,pronoun_state,context):
+def find_best_fit(inspector,pronoun_state,context,model=None):
+    if not model:
+        model=gensim.load("glove-wiki-gigaword-300")
     S=0
     R=0
     words=get_neighbours(inspector,pronoun_state)
@@ -48,6 +47,3 @@ def find_best_fit(inspector,pronoun_state,context):
             if s>S:
                 S,R= s,C
     return R
-
-inspector=Inspector(tg.parse('the school bus was passed by the racecar because it was too slow').nodes)
-print(resolve_pronouns(inspector))
