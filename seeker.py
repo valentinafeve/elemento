@@ -8,11 +8,6 @@ import gensim.downloader as api
 import sys
 from gensim.models.word2vec import Word2Vec
 
-scores = {
-    'WHO': 2,
-    'VERB': 4
-}
-
 print("Loading models...")
 model = api.load("glove-wiki-gigaword-300")
 RATIO = 0.8
@@ -57,16 +52,7 @@ while(True):
 
     if full_text:
         print("Processing text...")
-        notion.process_text(full_text, verbose=True, solve_pronouns=True)
-
-    questions = []
-    for idee in notion.idees:
-        questions.extend(
-            [{
-                "idee": idee,
-                "questions": el.generate_questions(idee)
-             }]
-        )
+        notion.process_text(full_text, solve_pronouns=True, verbose=True)
 
     question_vector = el.resolve_dictionary_wv(asker.idees[0], model=model)
     dict_question = asker.idees[0]
@@ -95,15 +81,11 @@ while(True):
                 c, d = model.similar_by_vector(idee_vector[key],topn=1)[0]
                 distance = model.distance(a,c)
                 if distance < RATIO:
-                    score += (1-RATIO)*2
-                    multiplier = 1
-                    if key in scores:
-                        multiplier = scores[key]
-                    score += (1-RATIO)*multiplier
+                    score += (1-distance)
 
         if score > SCORE:
             solutions.append(
-                (idee_vector,score)
+                (idee_vector, score)
             )
 
     solutions = sorted(solutions, key=lambda x: x[1], reverse=True)

@@ -20,19 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1583ffa9-7d18-4b4d-84c2-5cf99c4ff352" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/elemento.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/elemento.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/books/charlemagne" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/books/questions" beforeDir="false" afterPath="$PROJECT_DIR$/books/questions" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elemento/elemento.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/elemento.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elemento/notion.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/notion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elemento/patterns/idee" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/patterns/idee" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elemento/patterns/questions" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/patterns/questions" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elemento/pronoun_finder.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/pronoun_finder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elemento/relations.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/relations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elemento/tree_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/tree_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example2.py" beforeDir="false" afterPath="$PROJECT_DIR$/example2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/seeker.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -204,7 +196,10 @@
       <workItem from="1595784407862" duration="1263000" />
       <workItem from="1595785832940" duration="1893000" />
       <workItem from="1595788257531" duration="3303000" />
-      <workItem from="1595791662910" duration="4248000" />
+      <workItem from="1595791662910" duration="5353000" />
+      <workItem from="1595797288130" duration="916000" />
+      <workItem from="1595798749657" duration="3174000" />
+      <workItem from="1595802142042" duration="5067000" />
     </task>
     <servers />
   </component>
@@ -228,10 +223,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="137" y="3" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.768@0.0.1366.768" timestamp="1595782941842" />
-    <state x="352" y="71" width="633" height="392" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595769005292">
+    <state x="350" y="55" width="633" height="392" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595798004980">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="352" y="71" width="633" height="392" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1595769005292" />
+    <state x="350" y="55" width="633" height="392" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1595798004979" />
     <state x="449" y="-8" width="428" height="502" key="FileChooserDialogImpl" timestamp="1595768743077">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -260,6 +255,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="268" y="33" width="804" height="516" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1595767762732" />
+    <state x="374" y="0" width="618" height="768" key="find.popup" timestamp="1595804899580">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="374" y="0" width="618" height="768" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1595804899580" />
     <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1595630692939">
       <screen x="0" y="0" width="1366" height="768" />
     </state>

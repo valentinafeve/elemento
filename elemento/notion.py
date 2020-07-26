@@ -1,9 +1,11 @@
 from elemento import pronoun_finder as pnf
 from elemento.relations import *
+import elemento.relations as rel
 from elemento.inspector import Inspector
 from nltk.parse.corenlp import CoreNLPDependencyParser
 from nltk.parse.dependencygraph import DependencyGraph
 import gensim.downloader as api
+import gensim
 from colorama import Fore, Style
 
 parser = CoreNLPDependencyParser(url='http://localhost:9000')
@@ -27,12 +29,12 @@ class Notion:
         '''
         self.matchers = []
         self.idees = []
-        self.pronouns = []
         self.time_dictionary = {}
         self.solved_pronouns = {}
-        self.model = model
-        if not model:
-            self.model = api.load("glove-wiki-gigaword-300")
+        self.model: gensim.models.keyedvectors.Word2VecKeyedVectors = model
+        self.nouns = {}
+        # if not model:
+            # self.model = api.load("glove-wiki-gigaword-300")
         if not patterns_f:
             patterns_f = 'elemento/patterns/idee'
         if not time_f:
@@ -113,20 +115,35 @@ class Notion:
             ## TODO: Raise exception
             return
         dg = DependencyGraph(conll)
-        i = Inspector( dg.nodes )
-        if solve_pronouns:
-            self.solved_pronouns = pnf.resolve_pronouns(inspector=i, model=self.model )
-        print("Iterating %d matchers" % len(self.matchers))
+        i = Inspector(dg.nodes)
         for matcher in self.matchers:
             idee = matcher(i)
             if idee:
+                idee.dg = dg
                 if verbose:
                     print(Fore.MAGENTA)
                     print(idee)
+                    if idee.solved_pronouns:
+                        print(idee.solved_pronouns)
                     print(Style.RESET_ALL)
                     print('\n')
-                idee.dg = dg
+                f = rel.ALL_F(
+                    rel.AND_F(
+                        rel.MATCH_TAG('noun', 'NN'),
+                        rel.MATCH_REL('noun', 'nsubj'),
+                    )
+                )
+                noun_list = f(i)
+                if noun_list:
+                    node = noun_list[0].get('noun')
+                    n = idee.dg.nodes.get(node)['word'].lower()
+                    current = self.nouns.get(n, 0)
+                    self.nouns[n] = current+1
                 self.idees.append(idee)
+        if solve_pronouns:
+            nouns = sorted(self.nouns.items(), key=lambda x: x[1], reverse=True)
+            popular_noun, score = nouns[0]
+            self.solved_pronouns = pnf.resolve_pronouns(inspector=i, model=self.model, default_noun=popular_noun)
 
     def process_text( self, text, verbose=False, solve_pronouns=False):
         for sentence in text:

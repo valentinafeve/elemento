@@ -51,15 +51,22 @@ def resolve_dictionary_wv(idee: Idee, solved_pronouns=None, model=None):
     dictionary = idee.dictionary
     solved_dictionary = {}
     for key, val in dictionary.items():
+        print("Solving...")
+        print(key)
+        print(val)
         rels = ['compound','nmod','case','amod','conj']
         text = smart_resolve_words_from_node(dg, val, rels=rels, solved_pronouns=solved_pronouns).lower()
+        print(text)
         vectors = []
         for word in text.split():
             if word and (word in exceptions or word not in stopwords.words('english')):
+                print("Solving word")
+                print(word)
                 try:
                     word_vector = model.wv.get_vector(word)
                     vectors.append(word_vector)
                 except:
+                    print("Not found")
                     pass
         if vectors:
             vector = np.average(vectors, axis=0)
