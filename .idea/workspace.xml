@@ -20,12 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1583ffa9-7d18-4b4d-84c2-5cf99c4ff352" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/books/charlemagne" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elemento/elemento.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/elemento.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elemento/notion.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/notion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elemento/pronoun_finder.py" beforeDir="false" afterPath="$PROJECT_DIR$/elemento/pronoun_finder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeker.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +195,7 @@
       <workItem from="1595791662910" duration="5353000" />
       <workItem from="1595797288130" duration="916000" />
       <workItem from="1595798749657" duration="3174000" />
-      <workItem from="1595802142042" duration="5067000" />
+      <workItem from="1595802142042" duration="5582000" />
     </task>
     <servers />
   </component>

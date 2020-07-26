@@ -30,7 +30,6 @@ class Notion:
         self.matchers = []
         self.idees = []
         self.time_dictionary = {}
-        self.solved_pronouns = {}
         self.model: gensim.models.keyedvectors.Word2VecKeyedVectors = model
         self.nouns = {}
         # if not model:
@@ -116,8 +115,14 @@ class Notion:
             return
         dg = DependencyGraph(conll)
         i = Inspector(dg.nodes)
+        solved_pronouns = None
+        if solve_pronouns:
+            nouns = sorted(self.nouns.items(), key=lambda x: x[1], reverse=True)
+            popular_noun, score = nouns[0]
+            solved_pronouns = pnf.resolve_pronouns(inspector=i, model=self.model, default_noun=popular_noun)
         for matcher in self.matchers:
             idee = matcher(i)
+            idee.solved_pronouns = solved_pronouns
             if idee:
                 idee.dg = dg
                 if verbose:
@@ -140,10 +145,6 @@ class Notion:
                     current = self.nouns.get(n, 0)
                     self.nouns[n] = current+1
                 self.idees.append(idee)
-        if solve_pronouns:
-            nouns = sorted(self.nouns.items(), key=lambda x: x[1], reverse=True)
-            popular_noun, score = nouns[0]
-            self.solved_pronouns = pnf.resolve_pronouns(inspector=i, model=self.model, default_noun=popular_noun)
 
     def process_text( self, text, verbose=False, solve_pronouns=False):
         for sentence in text:
