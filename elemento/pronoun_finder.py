@@ -1,17 +1,18 @@
 import elemento.relations as rel
-import elemento.tree_generator as tg
-import gensim.downloader as gensim
-from elemento.inspector import Inspector
+import gensim.downloader as api
 
 find_context=rel.ALL_F(
     rel.AND_F(
         rel.MATCH_TAG('NN','NN'),
-        rel.NOT_F(rel.MATCH_REL('cmp','compound'))
+        rel.NOT_F(rel.MATCH_REL('compound','compound'))
     )
 )
 
 find_pronouns=rel.ALL_F(
-    rel.MATCH_TAG('PRP','PRP')
+    rel.OR_F(
+        rel.MATCH_TAG('PRP','PRP'),
+        rel.MATCH_TAG('WP','WP')
+    )
 )
 
 def resolve_pronouns(inspector,model=None):
@@ -19,7 +20,6 @@ def resolve_pronouns(inspector,model=None):
     pronouns=find_pronouns(inspector)
     R={}
     for p in [ prp.get('PRP') for prp in pronouns]:
-        print(p)
         r=find_best_fit(inspector,p,context,model=model)
         R[p]=r
     return R
@@ -31,19 +31,23 @@ def get_neighbours(inspector,state):
     words=[]
     for i in range(n,N):
         if i!= state:
-            words+=[nodes[i]['word']]
+            if nodes[i]['word']:
+                words.append(nodes[i]['word'].lower())
     return words
 
 def find_best_fit(inspector,pronoun_state,context,model=None):
     if not model:
-        model=gensim.load("glove-wiki-gigaword-300")
+        model=api.load("glove-wiki-gigaword-300")
     S=0
     R=0
     words=get_neighbours(inspector,pronoun_state)
     for C in [ctx.get('NN') for ctx in context]:
-        candidate=inspector.nodes[C]['word']
+        candidate=inspector.nodes[C]['word'].lower()
         if candidate:
-            s=model.n_similarity(candidate,words)
+            try:
+                s=model.n_similarity([candidate], words)
+            except:
+                print("Some words were not found in vocabulary...")
             if s>S:
                 S,R= s,C
     return R

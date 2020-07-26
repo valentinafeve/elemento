@@ -11,7 +11,6 @@ import elemento.pronoun_finder
 
 exceptions = ['how', 'who', 'what', 'when', 'where', 'is', 'was', 'were']
 
-
 def generate_questions(idee):
     dictionary = idee.dictionary
     dg = idee.dg
@@ -45,7 +44,7 @@ def resolve_dictionary(dg, dictionary):
     return solved_dictionary
 
 
-def resolve_dictionary_wv(idee: Idee, model=None):
+def resolve_dictionary_wv(idee: Idee, solved_pronouns=None, model=None):
     if not model:
         model = api.load("glove-wiki-gigaword-50")
     dg = idee.dg
@@ -53,7 +52,7 @@ def resolve_dictionary_wv(idee: Idee, model=None):
     solved_dictionary = {}
     for key, val in dictionary.items():
         rels = ['compound','nmod','case','amod','conj']
-        text = smart_resolve_words_from_node(dg, val, rels=rels).lower()
+        text = smart_resolve_words_from_node(dg, val, rels=rels, solved_pronouns=solved_pronouns).lower()
         vectors = []
         for word in text.split():
             if word and (word in exceptions or word not in stopwords.words('english')):
@@ -72,7 +71,6 @@ def resolve_words_from_node(dg, node, solved_pronouns=None):
     if solved_pronouns:
         if node in solved_pronouns:
             node = solved_pronouns[node]
-    solved_dictionary = {}
     children = dg.nodes.get(node)['deps'].values()
     text = ""
     for child in children:

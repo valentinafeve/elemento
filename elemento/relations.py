@@ -5,11 +5,14 @@ import gensim.downloader as gensim
 # model=gensim.load("glove-twitter-25")
 
 class Idee:
-    def __init__(self):
+    def __init__(self, dictionary=None):
+        if dictionary is None:
+            dictionary = {}
         self.time = 0
         self.dg = None
-        self.dictionary = {}
+        self.dictionary = dictionary
         self.weight=0
+        self.solved_pronouns = {}
 
     def __repr__(self):
         return '<Dictionary: '+str(self.dictionary)+'>'
@@ -52,7 +55,7 @@ def any(tree):
 
 def NOT_F(f):
     def not_f(tree):
-        return None if f(tree) else Idee()
+        return None if f(tree) else Idee(dictionary={'NOT': tree.get_state()})
     return not_f
 
 def OR_F(*args):

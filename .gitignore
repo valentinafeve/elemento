@@ -135,4 +135,4 @@ dmypy.json
 *.ps
 
 # Pycharm
-.idea
+.idea/

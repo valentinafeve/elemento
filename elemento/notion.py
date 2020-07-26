@@ -1,9 +1,9 @@
-from elemento import pronoun_finder
+from elemento import pronoun_finder as pnf
 from elemento.relations import *
-from elemento.time import Time
 from elemento.inspector import Inspector
 from nltk.parse.corenlp import CoreNLPDependencyParser
 from nltk.parse.dependencygraph import DependencyGraph
+import gensim.downloader as api
 from colorama import Fore, Style
 
 parser = CoreNLPDependencyParser(url='http://localhost:9000')
@@ -20,27 +20,27 @@ def get_words( node, dg, filter=None):
     return words
 
 class Notion:
-    idees = []
-    model = None
     def __init__(self,patterns_f=None,time_f=None,model=None):
         '''
         patterns_f: path to patterns, must be string
         time_f: path to time, must be string
         '''
-        matchers = []
+        self.matchers = []
         self.idees = []
-        time_dictionary = {}
+        self.pronouns = []
+        self.time_dictionary = {}
+        self.solved_pronouns = {}
+        self.model = model
         if not model:
-            self.model=gensim.load("glove-wiki-gigaword-300")
+            self.model = api.load("glove-wiki-gigaword-300")
         if not patterns_f:
             patterns_f = 'elemento/patterns/idee'
-
         if not time_f:
             time_f = 'elemento/patterns/time'
 
         # Reading idee patterns
-        f = open(patterns_f,"r+")
-        for line in f.readlines():
+        file = open(patterns_f,"r+")
+        for line in file.readlines():
             if line[0] == "#":
                 continue
 
@@ -94,63 +94,42 @@ class Notion:
 
             result = parent
             matcher = result
-            matchers.append(matcher)
+            self.matchers.append(matcher)
+        file.close()
 
-        self.matchers = matchers
-
-        # Reading time
-        f = open(time_f,"r+")
-        for line in f.readlines():
-            words = line.split('=')[0].strip()
-            time = line.split('=')[1].strip()
-            for word in words.split(','):
-                time_dictionary[word]=Time(time)
-        self.time_dictionary = time_dictionary
-
-    def process_text( self, text, verbose=None):
-        sequencial_time = 0
-        now = Time()
-        for sentence in text:
-            if not sentence or sentence[0] == '#':
-                continue
+    def process_sentence(self, sentence, verbose=False, solve_pronouns=False):
+        try:
             parse, = parser.raw_parse(sentence)
             conll = parse.to_conll(4)
             if verbose:
                 cont = 1
+                print(Fore.YELLOW)
                 for line in conll.split('\n'):
                     print(f'{cont}:\t{line} ')
                     cont+= 1
-            dg = DependencyGraph(conll)
-            i = Inspector( dg.nodes )
-
-            for matcher in self.matchers:
-                idee = matcher(i)
-                if idee:
-                    idee.dg = dg
-                    if not idee.dictionary.get('WHEN', False):
-                        now = now + Time()
-                        idee.time = now
-                        idee.time.words = "now"
-                    else:
-                        time_words = get_words(idee.dictionary['WHEN'], idee.dg, filter=['det'])
-                        now =  now + Time.get_time( time_words, self.time_dictionary )
-                        idee.time = now
-                        idee.time.words = time_words
-                    self.idees.append(idee)
-                    sequencial_time += 1
-                    if verbose:
-                        print( Fore.GREEN )
-                        print('Sentence',sentence)
-                        print('Idee',idee)
-                        print( Style.RESET_ALL )
-
-    def process_sentence(self, sentence):
-        parse, = parser.raw_parse(sentence)
-        conll = parse.to_conll(4)
+                print('\n')
+                print(Style.RESET_ALL)
+        except Exception:
+            ## TODO: Raise exception
+            return
         dg = DependencyGraph(conll)
         i = Inspector( dg.nodes )
+        if solve_pronouns:
+            self.solved_pronouns = pnf.resolve_pronouns(inspector=i, model=self.model )
+        print("Iterating %d matchers" % len(self.matchers))
         for matcher in self.matchers:
             idee = matcher(i)
             if idee:
+                if verbose:
+                    print(Fore.MAGENTA)
+                    print(idee)
+                    print(Style.RESET_ALL)
+                    print('\n')
                 idee.dg = dg
                 self.idees.append(idee)
+
+    def process_text( self, text, verbose=False, solve_pronouns=False):
+        for sentence in text:
+            if not sentence or sentence[0] == '#':
+                continue
+            self.process_sentence(sentence, verbose=verbose, solve_pronouns=solve_pronouns)
