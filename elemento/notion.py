@@ -117,13 +117,25 @@ class Notion:
         i = Inspector(dg.nodes)
         solved_pronouns = None
         if solve_pronouns:
+            f = rel.ALL_F(
+                    rel.AND_F(
+                        rel.MATCH_TAG('noun', 'NN'),
+                        rel.MATCH_REL('noun', 'nsubj'),
+                    )
+                )
+            noun_list = f(i)
+            if noun_list:
+                node = noun_list[0].get('noun')
+                n = dg.nodes.get(node)['word'].lower()
+                current = self.nouns.get(n, 0)
+                self.nouns[n] = current+1
             nouns = sorted(self.nouns.items(), key=lambda x: x[1], reverse=True)
             popular_noun, score = nouns[0]
             solved_pronouns = pnf.resolve_pronouns(inspector=i, model=self.model, default_noun=popular_noun)
         for matcher in self.matchers:
             idee = matcher(i)
-            idee.solved_pronouns = solved_pronouns
             if idee:
+                idee.solved_pronouns = solved_pronouns
                 idee.dg = dg
                 if verbose:
                     print(Fore.MAGENTA)
@@ -132,18 +144,6 @@ class Notion:
                         print(idee.solved_pronouns)
                     print(Style.RESET_ALL)
                     print('\n')
-                f = rel.ALL_F(
-                    rel.AND_F(
-                        rel.MATCH_TAG('noun', 'NN'),
-                        rel.MATCH_REL('noun', 'nsubj'),
-                    )
-                )
-                noun_list = f(i)
-                if noun_list:
-                    node = noun_list[0].get('noun')
-                    n = idee.dg.nodes.get(node)['word'].lower()
-                    current = self.nouns.get(n, 0)
-                    self.nouns[n] = current+1
                 self.idees.append(idee)
 
     def process_text( self, text, verbose=False, solve_pronouns=False):
